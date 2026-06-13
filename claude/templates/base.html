@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% block title %}Movie Types Quiz{% endblock %}</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+  <main class="card">
+    <header class="card__head">
+      <span class="reel" aria-hidden="true">🎬</span>
+      <h1 class="brand">Movie Types Quiz</h1>
+    </header>
+    {% block content %}{% endblock %}
+  </main>
+  <footer class="page-foot">Built with Flask · 30+ questions on the genres of cinema</footer>
+</body>
+</html>

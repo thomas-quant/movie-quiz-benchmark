@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% block content %}
+  <p class="lead">
+    Test how well you know the <strong>types of movies</strong> — from horror and
+    film noir to mockumentaries and heist flicks. Each question is on its own page,
+    and your answers are remembered as you go, so you can move back and forth freely.
+  </p>
+
+  <ul class="facts">
+    <li><span class="facts__num">{{ total }}</span> questions</li>
+    <li><span class="facts__num">1</span> per page</li>
+    <li><span class="facts__num">4</span> choices each</li>
+  </ul>
+
+  {% if answered %}
+    <p class="resume-note">You have {{ answered }} answer{{ '' if answered == 1 else 's' }} saved from a previous run.</p>
+    <div class="actions actions--center">
+      <a class="btn btn--primary" href="{{ url_for('quiz', n=1) }}">Resume quiz</a>
+      <a class="btn btn--ghost" href="{{ url_for('start') }}">Start over</a>
+    </div>
+  {% else %}
+    <div class="actions actions--center">
+      <a class="btn btn--primary" href="{{ url_for('start') }}">Start the quiz →</a>
+    </div>
+  {% endif %}
+{% endblock %}

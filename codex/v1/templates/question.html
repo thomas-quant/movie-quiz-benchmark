@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+
+{% block title %}Question {{ number }} | Movie Types Quiz{% endblock %}
+
+{% block content %}
+  <section class="quiz-shell">
+    <div class="progress-row">
+      <span>Question {{ number }} of {{ question_count }}</span>
+      <span>{{ question.category }}</span>
+    </div>
+
+    <div class="progress-track" aria-hidden="true">
+      <div class="progress-fill" style="width: {{ (number / question_count * 100) | round(0, 'floor') }}%"></div>
+    </div>
+
+    {% if feedback %}
+      <aside class="feedback {% if feedback.is_correct %}correct{% else %}incorrect{% endif %}">
+        <strong>Last answer:
+          {% if feedback.is_correct %}Correct{% else %}Incorrect{% endif %}
+        </strong>
+        <p>
+          You chose {{ feedback.selected }}.
+          Correct answer: {{ feedback.correct_answer }}.
+          {{ feedback.explanation }}
+        </p>
+      </aside>
+    {% endif %}
+
+    <form class="question-panel" action="{{ url_for('quiz_question', number=number) }}" method="post">
+      <fieldset>
+        <legend>{{ question.prompt }}</legend>
+
+        {% if error %}
+          <p class="error">{{ error }}</p>
+        {% endif %}
+
+        <div class="answers">
+          {% for option in question.options %}
+            <label class="answer-option">
+              <input type="radio" name="answer" value="{{ option }}" required>
+              <span>{{ option }}</span>
+            </label>
+          {% endfor %}
+        </div>
+      </fieldset>
+
+      <button class="primary-button" type="submit">Submit answer</button>
+    </form>
+  </section>
+{% endblock %}

@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+
+{% block title %}Results | Movie Types Quiz{% endblock %}
+
+{% block content %}
+  <section class="result-summary">
+    <p class="eyebrow">Final score</p>
+    <h1>{{ score }} / {{ question_count }}</h1>
+    <p class="lede">Review your answer history below, then restart for another run.</p>
+    <form action="{{ url_for('start') }}" method="post">
+      <button class="primary-button" type="submit">Try again</button>
+    </form>
+  </section>
+
+  <section class="history">
+    <h2>Answer history</h2>
+    <ol>
+      {% for answer in answers %}
+        <li class="{% if answer.is_correct %}correct-row{% else %}incorrect-row{% endif %}">
+          <strong>{{ answer.question }}</strong>
+          <span>Your answer: {{ answer.selected }}</span>
+          <span>Correct answer: {{ answer.correct_answer }}</span>
+        </li>
+      {% endfor %}
+    </ol>
+  </section>
+{% endblock %}
