@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% block title %}Results · Movie Types Quiz{% endblock %}
+{% block content %}
+  <section class="score">
+    <div class="score__ring" style="--pct: {{ pct }}">
+      <span class="score__num">{{ score }}<small>/{{ total }}</small></span>
+    </div>
+    <p class="score__pct">{{ pct }}%</p>
+    <p class="verdict">{{ verdict }}</p>
+  </section>
+
+  <div class="actions actions--center">
+    <a class="btn btn--primary" href="{{ url_for('start') }}">Try again</a>
+    <a class="btn btn--ghost" href="{{ url_for('index') }}">Home</a>
+  </div>
+
+  <h2 class="review-head">Review</h2>
+  <ol class="review">
+    {% for r in review %}
+      <li class="review__item {{ 'is-correct' if r.is_correct else ('is-skipped' if not r.answered else 'is-wrong') }}">
+        <p class="review__q"><span class="review__n">Q{{ r.n }}.</span> {{ r.q }}</p>
+        <p class="review__line review__line--correct">
+          ✓ Correct: <strong>{{ r.options[r.correct] }}</strong>
+        </p>
+        {% if not r.answered %}
+          <p class="review__line review__line--skip">— You skipped this one.</p>
+        {% elif not r.is_correct %}
+          <p class="review__line review__line--wrong">
+            ✗ You chose: {{ r.options[r.chosen] }}
+          </p>
+        {% endif %}
+        <p class="review__explain">{{ r.explain }}</p>
+      </li>
+    {% endfor %}
+  </ol>
+{% endblock %}

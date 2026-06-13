@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block title %}Start Movie Types Quiz{% endblock %}
+
+{% block content %}
+  <section class="hero">
+    <p class="eyebrow">{{ question_count }} questions</p>
+    <h1>Movie Types Quiz</h1>
+    <p class="lede">
+      Identify movie genres and formats one page at a time. Your answer history
+      and score are kept as you move through the quiz.
+    </p>
+    <form action="{{ url_for('start') }}" method="post">
+      <button class="primary-button" type="submit">Start quiz</button>
+    </form>
+  </section>
+{% endblock %}
