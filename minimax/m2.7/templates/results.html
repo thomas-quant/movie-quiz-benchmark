@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% block title %}Results - Movie Type Quiz{% endblock %}
+{% block content %}
+<h1>Quiz Complete!</h1>
+<div class="result-score">{{ percentage }}%</div>
+<div class="result-grade">{{ grade }}</div>
+<p>You scored {{ score }} out of {{ total }} questions correctly.</p>
+
+<h2 style="margin: 30px 0 15px; text-align: left;">Your Answers:</h2>
+{% for answer in answers %}
+<div class="answer-item {% if answer.is_correct %}correct{% else %}wrong{% endif %}">
+    <div class="answer-label">Question {{ loop.index }}</div>
+    <div style="margin-bottom: 5px;">{{ answer.question }}</div>
+    <div style="color: {% if answer.is_correct %} #4ecdc4 {% else %} #e94560 {% endif %};">
+        {% if answer.is_correct %}✓ Correct{% else %}✗ Your answer: {{ answer.selected }} (Correct: {{ answer.correct }}){% endif %}
+    </div>
+</div>
+{% endfor %}
+
+<a href="{{ url_for('start') }}" class="btn" style="margin-top: 30px;">Play Again</a>
+{% endblock %}
