@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Movie Types Quiz</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: system-ui, -apple-system, sans-serif;
+      background: #0f0f0f;
+      color: #e0e0e0;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .card {
+      background: #1a1a1a;
+      border: 1px solid #2a2a2a;
+      border-radius: 16px;
+      padding: 3rem;
+      max-width: 540px;
+      width: 90%;
+      text-align: center;
+    }
+    h1 {
+      font-size: 2rem;
+      font-weight: 700;
+      margin-bottom: 0.75rem;
+      background: linear-gradient(135deg, #f5af19, #f12711);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    p { color: #888; margin-bottom: 2rem; line-height: 1.6; }
+    .btn {
+      display: inline-block;
+      padding: 0.85rem 2.5rem;
+      background: linear-gradient(135deg, #f5af19, #f12711);
+      color: #fff;
+      font-weight: 600;
+      font-size: 1.05rem;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      text-decoration: none;
+      transition: transform 0.15s, box-shadow 0.15s;
+    }
+    .btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 24px rgba(241, 39, 17, 0.35);
+    }
+    .count { font-size: 0.85rem; color: #555; margin-top: 1.5rem; }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <h1>Movie Types Quiz</h1>
+    <p>Test your knowledge of film genres across {{ total }} questions. Each page is a new question &mdash; how many can you get right?</p>
+    <a href="{{ url_for('quiz', qid=0) }}" class="btn">Start Quiz</a>
+    <div class="count">{{ total }} questions</div>
+  </div>
+</body>
+</html>
