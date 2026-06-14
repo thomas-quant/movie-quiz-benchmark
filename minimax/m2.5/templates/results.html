@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Results - Movie Quiz</title>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Source+Sans+3:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Source Sans 3', sans-serif;
+            background: #0a0a0f;
+            color: #f0f0f0;
+            min-height: 100vh;
+            padding: 40px 20px;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            animation: fadeIn 0.6s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .card {
+            background: #16161d;
+            border-radius: 16px;
+            padding: 40px;
+            text-align: center;
+            border: 1px solid #2a2a35;
+            margin-bottom: 24px;
+        }
+
+        .trophy {
+            font-size: 72px;
+            margin-bottom: 16px;
+        }
+
+        .title {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 48px;
+            letter-spacing: 4px;
+            margin-bottom: 8px;
+            background: linear-gradient(135deg, #e50914, #f5c518);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .message {
+            color: #8a8a9a;
+            font-size: 18px;
+            margin-bottom: 32px;
+        }
+
+        .score-display {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 24px;
+            margin-bottom: 32px;
+        }
+
+        .score-number {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 80px;
+            line-height: 1;
+        }
+
+        .score-number .current {
+            color: #f5c518;
+        }
+
+        .score-number .total {
+            font-size: 40px;
+            color: #8a8a9a;
+        }
+
+        .score-percentage {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 64px;
+            color: #22c55e;
+        }
+
+        .btn {
+            display: inline-block;
+            background: #e50914;
+            color: #fff;
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 20px;
+            letter-spacing: 2px;
+            padding: 14px 40px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .btn:hover {
+            background: #f5c518;
+            color: #0a0a0f;
+        }
+
+        .answers-title {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 24px;
+            letter-spacing: 2px;
+            margin-bottom: 16px;
+            text-align: left;
+        }
+
+        .answers-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .answer-card {
+            background: #16161d;
+            border-radius: 12px;
+            padding: 16px;
+            border: 1px solid #2a2a35;
+            text-align: left;
+        }
+
+        .answer-card.correct {
+            border-color: #22c55e;
+        }
+
+        .answer-card.incorrect {
+            border-color: #ef4444;
+        }
+
+        .question-num {
+            font-size: 12px;
+            color: #8a8a9a;
+            margin-bottom: 4px;
+        }
+
+        .question-text {
+            font-size: 14px;
+            margin-bottom: 8px;
+        }
+
+        .answer-status {
+            font-size: 13px;
+        }
+
+        .answer-status.correct {
+            color: #22c55e;
+        }
+
+        .answer-status.incorrect {
+            color: #ef4444;
+        }
+
+        .your-answer {
+            font-size: 12px;
+            color: #f5c518;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="card">
+            <div class="trophy">🏆</div>
+            <h1 class="title">RESULTS</h1>
+            <p class="message">{{ message }}</p>
+            
+            <div class="score-display">
+                <div class="score-number">
+                    <span class="current">{{ score }}</span>
+                    <span class="total">/{{ total }}</span>
+                </div>
+            </div>
+            
+            <div class="score-percentage">{{ percentage }}%</div>
+            
+            <a href="{{ url_for('reset') }}" class="btn">PLAY AGAIN</a>
+        </div>
+        
+        <h2 class="answers-title">YOUR ANSWERS</h2>
+        
+        <div class="answers-list">
+            {% for i in range(questions|length) %}
+            <div class="answer-card {% if answers[i] == questions[i].answer %}correct{% else %}incorrect{% endif %}">
+                <div class="question-num">Question {{ i + 1 }}</div>
+                <p class="question-text">{{ questions[i].question }}</p>
+                <p class="answer-status {% if answers[i] == questions[i].answer %}correct{% else %}incorrect{% endif %}">
+                    {% if answers[i] == questions[i].answer %}
+                    ✓ Correct: {{ questions[i].options[questions[i].answer] }}
+                    {% else %}
+                    ✗ Your answer: 
+                    {% if answers[i] >= 0 %}{{ questions[i].options[answers[i]] }}{% else %}No answer{% endif %}
+                    <br>Correct: {{ questions[i].options[questions[i].answer] }}
+                    {% endif %}
+                </p>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</body>
+</html>

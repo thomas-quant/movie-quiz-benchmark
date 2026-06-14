@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Question {{ q_index + 1 }} - Movie Quiz</title>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Source+Sans+3:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Source Sans 3', sans-serif;
+            background: #0a0a0f;
+            color: #f0f0f0;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 600px;
+            width: 100%;
+            animation: fadeIn 0.6s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .card {
+            background: #16161d;
+            border-radius: 16px;
+            padding: 32px;
+            border: 1px solid #2a2a35;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 24px;
+        }
+
+        .progress-text {
+            font-size: 14px;
+            color: #8a8a9a;
+        }
+
+        .progress-badge {
+            background: #e50914;
+            color: #fff;
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 14px;
+            padding: 4px 12px;
+            border-radius: 4px;
+        }
+
+        .progress-bar {
+            height: 4px;
+            background: #2a2a35;
+            border-radius: 2px;
+            margin-bottom: 32px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #e50914, #f5c518);
+            transition: width 0.3s ease;
+        }
+
+        .question-text {
+            font-size: 22px;
+            font-weight: 600;
+            margin-bottom: 32px;
+            line-height: 1.4;
+        }
+
+        .options {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .option {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            padding: 16px 20px;
+            background: #1e1e28;
+            border: 2px solid #2a2a35;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .option:hover {
+            border-color: #e50914;
+            transform: translateX(4px);
+        }
+
+        .option-letter {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 20px;
+            width: 36px;
+            height: 36px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #2a2a35;
+            border-radius: 6px;
+            flex-shrink: 0;
+        }
+
+        .option-text {
+            font-size: 16px;
+        }
+
+        input[type="radio"] {
+            display: none;
+        }
+
+        input[type="radio"]:checked + .option {
+            border-color: #f5c518;
+            background: #252530;
+        }
+
+        input[type="radio"]:checked + .option .option-letter {
+            background: #f5c518;
+            color: #0a0a0f;
+        }
+
+        .submit-btn {
+            display: none;
+            width: 100%;
+            margin-top: 24px;
+            background: #e50914;
+            color: #fff;
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 20px;
+            letter-spacing: 2px;
+            padding: 14px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .submit-btn:hover {
+            background: #f5c518;
+            color: #0a0a0f;
+        }
+
+        .submit-btn.visible {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="card">
+            <div class="header">
+                <span class="progress-text">Question {{ q_index + 1 }} of {{ total }}</span>
+                <span class="progress-badge">MOVIE QUIZ</span>
+            </div>
+            
+            <div class="progress-bar">
+                <div class="progress-fill" style="width: {{ (q_index / total * 100) }}%"></div>
+            </div>
+            
+            <p class="question-text">{{ question.question }}</p>
+            
+            <form action="{{ url_for('answer') }}" method="POST" id="quiz-form">
+                {% for i in range(question.options|length) %}
+                <label class="option-label">
+                    <input type="radio" name="answer" value="{{ i }}" id="option{{ i }}" required>
+                    <label for="option{{ i }}" class="option">
+                        <span class="option-letter">{{ ['A', 'B', 'C', 'D'][i] }}</span>
+                        <span class="option-text">{{ question.options[i] }}</span>
+                    </label>
+                </label>
+                {% endfor %}
+                
+                <button type="submit" class="submit-btn" id="submit-btn">CONFIRM ANSWER</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        const radios = document.querySelectorAll('input[name="answer"]');
+        const submitBtn = document.getElementById('submit-btn');
+        
+        radios.forEach(radio => {
+            radio.addEventListener('change', () => {
+                submitBtn.classList.add('visible');
+            });
+        });
+    </script>
+</body>
+</html>

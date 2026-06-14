@@ -42,3 +42,38 @@ scorecard but **not** scored.
 | **Codex v1** | **−3** | Answer-lookahead leak (every answer A + category shown on the card) and tests written before the app. |
 
 Per-submission detail, metrics, and screenshots live in each submission's `SCORECARD.md`.
+
+## Expanded cohort: opencode runs
+
+A second cohort of models (`opencode/big-pickle`, `deepseek/v4-flash`, `xiaomi/mimo-v2.5`,
+and the `minimax/` family) was run through **[opencode](https://opencode.ai)**. Each
+received the **same one-shot prompt** as Claude/Codex v1 (verified verbatim against the
+opencode session transcripts).
+
+### How the metrics are measured
+
+opencode stores each run as a session of *turns* (a user message plus the assistant
+messages it triggers). Metrics are taken from the **build turn only** — the one-shot prompt
+through the assistant finishing writing files. Later turns in the same session (e.g. "run
+on port 3000", "run for me") are **excluded**, so they don't inflate the figures.
+
+- **Build wall time** = last assistant completion in the build turn − prompt submission time.
+- **Output tokens** = sum of completion tokens across the build turn's assistant messages
+  (reasoning tokens are reported separately in each scorecard, not in the headline number).
+
+### How the scorecards are produced
+
+The opencode scorecards record **facts only**; the qualitative call and final score are
+left to the maintainers (each has a blank "Maintainer assessment" section). Facts come from
+two passes:
+
+1. **Static read** of each `app.py` and its templates — question count, answer-position
+   distribution, state mechanism, anti-skip behaviour, live-score presence, restart, etc.
+2. **Live browser run** (Chromium via Playwright): each app is launched fresh on a clean
+   port and driven start → results. This confirms it runs without error and produces a
+   results page. The crawler always picks option A, so the final score should equal the
+   static **A-count** — a cross-check that held for all eight knowledge quizzes, verifying
+   both the answer-distribution reading and that scoring works.
+
+(`north_mini_code` and `nemotron_3_ultra` are not in this cohort: the former is pending a
+re-run, the latter was dropped.)

@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Results &middot; Movie Genre Quiz</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #e0e0e0;
+            padding: 32px;
+        }
+        .container {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 24px;
+            padding: 48px;
+            max-width: 720px;
+            width: 100%;
+            text-align: center;
+        }
+        .score-circle {
+            width: 140px;
+            height: 140px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            margin: 0 auto 24px;
+        }
+        .score-number { font-size: 2.8rem; font-weight: 700; line-height: 1; }
+        .score-label { font-size: 0.85rem; opacity: 0.8; }
+        h1 { margin-bottom: 8px; font-size: 1.6rem; }
+        .subtitle { color: #a0a0b0; margin-bottom: 32px; }
+        .question-review { text-align: left; margin-top: 32px; }
+        .review-item {
+            padding: 16px;
+            border-radius: 12px;
+            margin-bottom: 12px;
+            background: rgba(255, 255, 255, 0.04);
+            border-left: 4px solid transparent;
+        }
+        .review-item.correct { border-left-color: #4caf50; }
+        .review-item.incorrect { border-left-color: #f44336; }
+        .review-item.unanswered { border-left-color: #ff9800; }
+        .review-q { font-weight: 500; margin-bottom: 6px; font-size: 0.95rem; }
+        .review-detail { font-size: 0.85rem; color: #a0a0b0; }
+        .review-detail span.correct-answer { color: #4caf50; font-weight: 600; }
+        .review-detail span.your-answer { color: #f44336; }
+        .review-detail span.missed { color: #ff9800; }
+        .btn {
+            display: inline-block;
+            padding: 14px 48px;
+            border: none;
+            border-radius: 12px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            text-decoration: none;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            transition: transform 0.2s, box-shadow 0.2s;
+            margin-top: 16px;
+        }
+        .btn:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(102, 126, 234, 0.4); }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="score-circle">
+            <div class="score-number">{{ percentage }}%</div>
+            <div class="score-label">{{ score }} / {{ total }}</div>
+        </div>
+        <h1>
+            {% if percentage == 100 %}
+                Perfect Score!
+            {% elif percentage >= 80 %}
+                Great Job!
+            {% elif percentage >= 60 %}
+                Not Bad!
+            {% elif percentage >= 40 %}
+                Keep Studying
+            {% else %}
+                Time to Watch More Movies
+            {% endif %}
+        </h1>
+        <p class="subtitle">Here's how you did on each question</p>
+        <div class="question-review">
+            {% for r in results %}
+            <div class="review-item {% if r.is_correct %}correct{% elif r.selected is none %}unanswered{% else %}incorrect{% endif %}">
+                <div class="review-q">{{ r.question }}</div>
+                <div class="review-detail">
+                    {% if r.is_correct %}
+                        <span class="correct-answer">Correct &mdash; {{ r.correct }}</span>
+                    {% elif r.selected is none %}
+                        <span class="missed">Skipped</span> &middot; correct answer: <span class="correct-answer">{{ r.correct }}</span>
+                    {% else %}
+                        <span class="your-answer">{{ r.selected }}</span> &middot; correct answer: <span class="correct-answer">{{ r.correct }}</span>
+                    {% endif %}
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        <a href="{{ url_for('index') }}" class="btn">Play Again</a>
+    </div>
+</body>
+</html>

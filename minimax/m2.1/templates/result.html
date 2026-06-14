@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Results - Movie Quiz</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Georgia', serif;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        .container {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 60px 50px;
+            border-radius: 20px;
+            text-align: center;
+            max-width: 600px;
+            box-shadow: 0 25px 80px rgba(0, 0, 0, 0.4);
+        }
+        h1 {
+            color: #1a1a2e;
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+        }
+        .score {
+            font-size: 4rem;
+            font-weight: bold;
+            background: linear-gradient(135deg, #e94560 0%, #c73e54 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin: 30px 0;
+        }
+        .message {
+            color: #555;
+            font-size: 1.2rem;
+            margin-bottom: 35px;
+            line-height: 1.6;
+        }
+        .restart-btn {
+            background: linear-gradient(135deg, #e94560 0%, #c73e54 100%);
+            color: white;
+            border: none;
+            padding: 18px 50px;
+            font-size: 1.3rem;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: 'Georgia', serif;
+            font-weight: 500;
+            text-decoration: none;
+            display: inline-block;
+        }
+        .restart-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 30px rgba(233, 69, 96, 0.4);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Quiz Complete!</h1>
+        <div class="score">{{ score }} / {{ total }}</div>
+        <p class="message">
+            {% if score >= 27 %}
+            Outstanding! You're a true movie buff!
+            {% elif score >= 21 %}
+            Great job! You really know your films!
+            {% elif score >= 15 %}
+            Not bad! Keep watching more movies!
+            {% else %}
+            Better luck next time! Try watching some classic films!
+            {% endif %}
+        </p>
+        <a href="/" class="restart-btn">Play Again</a>
+    </div>
+</body>
+</html>
