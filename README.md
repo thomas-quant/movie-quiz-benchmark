@@ -37,8 +37,8 @@ test files:
 | Submission | Wall time | Output tokens | Questions | Layout | Test files |
 | --- | --- | --- | --- | --- | --- |
 | **Claude** | 5m 01s | 28.4k | 32 | `app.py` + `questions.py` + templates/static | None |
-| **Codex v1** | 5m 31s (done ~4m 30s) | 16.0k | 32 | `app.py` + templates/static + `tests/` | pytest |
-| **Codex v2** | 6m 40s | 41.1k | 35 | single `app.py` (inline templates) | None |
+| **Codex v1** | 5m 31s (done ~4m 30s) | 16.0k | 30 | `app.py` + templates/static + `tests/` | pytest |
+| **Codex v2** | 6m 40s | 41.1k | 30 | single `app.py` (inline templates) | None |
 
 All three keep per-question state across pages via Flask's signed `session` cookie
 and run on `http://127.0.0.1:5000`.
@@ -63,7 +63,7 @@ middle of the three — it leans on a generic dark-gradient "AI default" look.
 
 ## Codex v1
 
-32 questions, templates + external stylesheet, and a `tests/` directory — Codex
+30 questions, templates + external stylesheet, and a `tests/` directory — Codex
 wrote the **pytest tests before the app**. It includes a nice **Restart** control and
 shows a running score during the quiz, plus an anti-skip guard that stops you
 advancing past an unanswered question.
@@ -81,13 +81,14 @@ That lookahead leak is what triggered the v2 re-run.
 ## Codex v2
 
 Re-run with the tweaked prompt. Everything lives in a single ~960-line `app.py` with
-inline (`render_template_string`) templates and 35 questions. Codex **noticed the
+inline (`render_template_string`) templates and 30 questions. Codex **noticed the
 every-answer-is-A problem from v1 and fixed it**, distributing correct answers across
 positions via an explicit `ANSWER_POSITIONS` table. It tested itself and wrote no
 Python test files, as instructed. Keeps the anti-skip guard and the live score.
 
 The finish screen adds a cinema-staircase image for flavor — a creative touch, though
-it isn't scaled correctly. Subjectively this is the cleanest-looking of the three.
+it isn't scaled correctly. Subjectively this is the cleanest-looking of the three, and
+the start screen is a standout.
 
 | Start | Question | Finish | Finish (staircase) |
 | --- | --- | --- | --- |
@@ -107,10 +108,15 @@ it isn't scaled correctly. Subjectively this is the cleanest-looking of the thre
 - **Visual polish (subjective):** Codex v2 is the cleanest, Codex v1 is serviceable,
   Claude sits in the middle with a more generic aesthetic.
 
-The benchmark's own point notes: **Codex v1 −3** (answer lookahead leak; tests
-written before the app), **Claude −1** (minor UI rendering issues), **Codex v2** net
-break-even on the staircase (creativity vs. bad scaling). Live score and design
-choices were not scored, as they aren't falsifiable.
+Final tally (benchmark author's scoring): **Codex v2 +2**, **Claude −1**, **Codex v1 −3**.
+
+- **Codex v2 +2** — caught and fixed v1's answer leak, cleanest UI of the three (the
+  start screen especially), with the staircase's creativity offset by its bad scaling.
+- **Claude −1** — working on the first try, but minor UI rendering issues.
+- **Codex v1 −3** — answer-lookahead leak (every answer A + category shown on the
+  card) and tests written before the app.
+
+Live score and other design choices weren't scored, as they aren't falsifiable.
 
 ---
 
