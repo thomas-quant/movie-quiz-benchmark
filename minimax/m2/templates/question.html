@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Question {{ question_num }} - Movie Types Quiz</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        .container {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            max-width: 700px;
+            width: 100%;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3);
+        }
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+        .question-num {
+            background: linear-gradient(135deg, #e94560 0%, #ff6b6b 100%);
+            color: white;
+            padding: 8px 20px;
+            border-radius: 20px;
+            font-weight: bold;
+        }
+        .score {
+            color: #666;
+            font-size: 0.9rem;
+        }
+        .progress-bar {
+            width: 100%;
+            height: 8px;
+            background: #e0e0e0;
+            border-radius: 4px;
+            margin-bottom: 30px;
+            overflow: hidden;
+        }
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #e94560 0%, #ff6b6b 100%);
+            border-radius: 4px;
+            transition: width 0.5s ease;
+        }
+        .question-text {
+            font-size: 1.4rem;
+            color: #1a1a2e;
+            margin-bottom: 30px;
+            line-height: 1.5;
+        }
+        .options {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        .option {
+            display: none;
+        }
+        .option-label {
+            display: block;
+            background: #f8f9fa;
+            border: 2px solid #e0e0e0;
+            padding: 18px 24px;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 1.1rem;
+        }
+        .option-label:hover {
+            border-color: #e94560;
+            background: #fff5f6;
+        }
+        .option:checked + .option-label {
+            background: #e94560;
+            color: white;
+            border-color: #e94560;
+        }
+        .option-input {
+            display: none;
+        }
+        .options-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+        .option-btn {
+            background: #f8f9fa;
+            border: 2px solid #e0e0e0;
+            padding: 20px;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 1rem;
+            text-align: left;
+            color: #333;
+        }
+        .option-btn:hover {
+            border-color: #e94560;
+            background: #fff5f6;
+            transform: translateY(-2px);
+        }
+        .btn-submit {
+            display: block;
+            width: 100%;
+            background: linear-gradient(135deg, #e94560 0%, #ff6b6b 100%);
+            color: white;
+            padding: 16px;
+            border-radius: 12px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            border: none;
+            cursor: pointer;
+            margin-top: 30px;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        .btn-submit:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(233, 69, 96, 0.4);
+        }
+        .btn-submit:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+        .last-answer {
+            background: #e8f5e9;
+            border: 2px solid #4caf50;
+            padding: 15px 20px;
+            border-radius: 12px;
+            margin-bottom: 25px;
+        }
+        .last-answer.correct {
+            background: #e8f5e9;
+            border-color: #4caf50;
+        }
+        .last-answer.incorrect {
+            background: #ffebee;
+            border-color: #f44336;
+        }
+        .last-answer-text {
+            font-weight: bold;
+        }
+        .last-answer.correct .last-answer-text {
+            color: #2e7d32;
+        }
+        .last-answer.incorrect .last-answer-text {
+            color: #c62828;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <span class="question-num">Question {{ question_num }} of {{ total }}</span>
+            <span class="score">Score: {{ session.get('score', 0) }}</span>
+        </div>
+        
+        <div class="progress-bar">
+            <div class="progress-fill" style="width: {{ progress }}%"></div>
+        </div>
+        
+        {% if last_answer %}
+        <div class="last-answer {% if last_answer.correct %}correct{% else %}incorrect{% endif %}">
+            <div class="last-answer-text">
+                {% if last_answer.correct %}✓ Correct!{% else %}✗ Incorrect{% endif %}
+            </div>
+        </div>
+        {% endif %}
+        
+        <h2 class="question-text">{{ question.question }}</h2>
+        
+        <form method="POST" id="quizForm">
+            <div class="options-grid">
+                {% for option in question.options %}
+                <label class="option-btn">
+                    <input type="radio" name="answer" value="{{ loop.index0 }}" class="option-input" required>
+                    {{ option }}
+                </label>
+                {% endfor %}
+            </div>
+            <button type="submit" class="btn-submit">Submit Answer</button>
+        </form>
+    </div>
+    
+    <script>
+        const options = document.querySelectorAll('.option-btn');
+        options.forEach(option => {
+            option.addEventListener('click', function() {
+                const radio = this.querySelector('input[type="radio"]');
+                radio.checked = true;
+                options.forEach(opt => opt.style.background = '#f8f9fa');
+                options.forEach(opt => opt.style.borderColor = '#e0e0e0');
+                this.style.background = '#e94560';
+                this.style.color = 'white';
+                this.style.borderColor = '#e94560';
+            });
+        });
+    </script>
+</body>
+</html>

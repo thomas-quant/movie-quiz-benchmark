@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Results &middot; Movie Types Quiz</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: system-ui, -apple-system, sans-serif;
+      background: #0f0f0f;
+      color: #e0e0e0;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem 1rem;
+    }
+    .card {
+      background: #1a1a1a;
+      border: 1px solid #2a2a2a;
+      border-radius: 16px;
+      padding: 2.5rem;
+      max-width: 680px;
+      width: 100%;
+    }
+    .score-circle {
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #f5af19, #f12711);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 1rem;
+    }
+    .score-circle span {
+      font-size: 2.2rem;
+      font-weight: 700;
+      color: #fff;
+    }
+    h1 {
+      text-align: center;
+      font-size: 1.5rem;
+      margin-bottom: 0.4rem;
+    }
+    .sub {
+      text-align: center;
+      color: #888;
+      margin-bottom: 2rem;
+      font-size: 0.9rem;
+    }
+    .results-list { display: flex; flex-direction: column; gap: 0.75rem; }
+    .r-item {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      padding: 0.6rem 1rem;
+      border-radius: 10px;
+      background: #1f1f1f;
+      border: 1px solid #2a2a2a;
+      font-size: 0.85rem;
+    }
+    .r-item.correct { border-color: #2a6b3a; }
+    .r-item.wrong { border-color: #6b2a2a; }
+    .icon { font-size: 1.1rem; flex-shrink: 0; }
+    .r-q { flex: 1; line-height: 1.4; }
+    .r-answer { color: #888; flex-shrink: 0; text-align: right; }
+    .r-answer strong { color: #ccc; }
+    .r-answer .yours { color: #f55; }
+    .btn {
+      display: inline-block;
+      margin-top: 1.5rem;
+      padding: 0.7rem 2rem;
+      background: linear-gradient(135deg, #f5af19, #f12711);
+      color: #fff;
+      font-weight: 600;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      text-decoration: none;
+      text-align: center;
+      transition: transform 0.15s, box-shadow 0.15s;
+    }
+    .btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 16px rgba(241, 39, 17, 0.3);
+    }
+    .center { text-align: center; }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <div class="score-circle"><span>{{ score }}/{{ total }}</span></div>
+    <h1>
+      {% if pct >= 80 %}
+        Great Job!
+      {% elif pct >= 50 %}
+        Not Bad!
+      {% else %}
+        Keep Studying!
+      {% endif %}
+    </h1>
+    <p class="sub">You scored <strong>{{ pct }}%</strong> ({{ score }} of {{ total }} correct)</p>
+
+    <div class="results-list">
+      {% for r in results %}
+      <div class="r-item {{ 'correct' if r.is_correct else 'wrong' }}">
+        <span class="icon">{{ '&#10003;'|safe if r.is_correct else '&#10007;'|safe }}</span>
+        <span class="r-q">{{ r.question }}</span>
+        <span class="r-answer">
+          {% if r.is_correct %}
+            <strong>{{ r.chosen }}</strong>
+          {% else %}
+            <span class="yours">{{ r.chosen }}</span> &rarr; <strong>{{ r.correct }}</strong>
+          {% endif %}
+        </span>
+      </div>
+      {% endfor %}
+    </div>
+
+    <div class="center"><a href="{{ url_for('index') }}" class="btn">Try Again</a></div>
+  </div>
+</body>
+</html>

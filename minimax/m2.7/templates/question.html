@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% block title %}Question {{ question_num }} - Movie Type Quiz{% endblock %}
+{% block content %}
+<div class="progress">
+    <div class="progress-bar">
+        <div class="progress-fill" style="width: {{ (question_num / total * 100) }}%"></div>
+    </div>
+    Question {{ question_num }} of {{ total }}
+</div>
+
+<h1>What type of movie is this?</h1>
+<p style="font-size: 1.4em; margin: 30px 0;">{{ question }}</p>
+
+<form action="{{ url_for('answer', q_num=q_num) }}" method="POST">
+    {% for option in options %}
+    <button type="submit" name="answer" value="{{ option }}" class="btn-option">{{ option }}</button>
+    {% endfor %}
+</form>
+{% endblock %}

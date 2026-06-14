@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Question {{ progress }} &middot; Movie Genre Quiz</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #e0e0e0;
+        }
+        .container {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 24px;
+            padding: 48px;
+            max-width: 640px;
+            width: 90%;
+        }
+        .progress-bar {
+            width: 100%;
+            height: 6px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 3px;
+            margin-bottom: 32px;
+            overflow: hidden;
+        }
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #667eea, #764ba2);
+            border-radius: 3px;
+            transition: width 0.4s ease;
+        }
+        .question-number {
+            color: #888;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 12px;
+        }
+        h2 { font-size: 1.4rem; line-height: 1.5; margin-bottom: 32px; font-weight: 500; }
+        .options { display: flex; flex-direction: column; gap: 12px; }
+        .option-btn {
+            display: block;
+            width: 100%;
+            padding: 16px 20px;
+            background: rgba(255, 255, 255, 0.06);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            border-radius: 12px;
+            color: #e0e0e0;
+            font-size: 1rem;
+            cursor: pointer;
+            text-align: left;
+            transition: background 0.2s, border-color 0.2s, transform 0.15s;
+        }
+        .option-btn:hover {
+            background: rgba(255, 255, 255, 0.12);
+            border-color: rgba(255, 255, 255, 0.25);
+            transform: translateX(4px);
+        }
+        .option-btn:active { transform: scale(0.98); }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="progress-bar">
+            <div class="progress-fill" style="width: {{ (progress / total) * 100 }}%;"></div>
+        </div>
+        <div class="question-number">Question {{ progress }} of {{ total }}</div>
+        <h2>{{ question }}</h2>
+        <form method="POST" class="options">
+            {% for option in options %}
+                <button type="submit" name="answer" value="{{ option }}" class="option-btn">{{ option }}</button>
+            {% endfor %}
+        </form>
+    </div>
+</body>
+</html>

@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Question {{ qid + 1 }} &middot; Movie Types Quiz</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: system-ui, -apple-system, sans-serif;
+      background: #0f0f0f;
+      color: #e0e0e0;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .card {
+      background: #1a1a1a;
+      border: 1px solid #2a2a2a;
+      border-radius: 16px;
+      padding: 2.5rem;
+      max-width: 600px;
+      width: 90%;
+    }
+    .meta {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1.5rem;
+      font-size: 0.8rem;
+      color: #666;
+    }
+    .bar {
+      height: 4px;
+      background: #2a2a2a;
+      border-radius: 2px;
+      overflow: hidden;
+      margin-bottom: 1.5rem;
+    }
+    .bar-fill {
+      height: 100%;
+      background: linear-gradient(90deg, #f5af19, #f12711);
+      border-radius: 2px;
+      transition: width 0.3s;
+    }
+    .qnum {
+      display: inline-block;
+      background: #2a2a2a;
+      padding: 0.25rem 0.75rem;
+      border-radius: 6px;
+      font-size: 0.75rem;
+      color: #888;
+      margin-bottom: 1rem;
+    }
+    h2 {
+      font-size: 1.2rem;
+      font-weight: 500;
+      line-height: 1.6;
+      margin-bottom: 1.75rem;
+      color: #f0f0f0;
+    }
+    .options { display: flex; flex-direction: column; gap: 0.6rem; }
+    .option {
+      display: block;
+      position: relative;
+      cursor: pointer;
+    }
+    .option input { position: absolute; opacity: 0; }
+    .option label {
+      display: block;
+      padding: 0.9rem 1.2rem;
+      background: #242424;
+      border: 1px solid #333;
+      border-radius: 10px;
+      font-size: 0.95rem;
+      transition: border-color 0.15s, background 0.15s;
+      cursor: pointer;
+    }
+    .option input:checked + label {
+      border-color: #f5af19;
+      background: #2a2410;
+    }
+    .option label:hover {
+      border-color: #555;
+      background: #2a2a2a;
+    }
+    .nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 1.5rem;
+    }
+    .btn {
+      padding: 0.7rem 1.8rem;
+      background: linear-gradient(135deg, #f5af19, #f12711);
+      color: #fff;
+      font-weight: 600;
+      font-size: 0.95rem;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: transform 0.15s, box-shadow 0.15s;
+    }
+    .btn:hover:not(:disabled) {
+      transform: translateY(-1px);
+      box-shadow: 0 4px 16px rgba(241, 39, 17, 0.3);
+    }
+    .btn:disabled {
+      opacity: 0.35;
+      cursor: not-allowed;
+    }
+    .prev-info {
+      font-size: 0.8rem;
+      color: #666;
+    }
+    .prev-info strong { color: #888; }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <div class="meta">
+      <span>Question {{ qid + 1 }} of {{ total }}</span>
+      {% if prev_answer %}
+        <span class="prev-info">Previous: <strong>{{ prev_answer }}</strong></span>
+      {% endif %}
+    </div>
+
+    <div class="bar">
+      <div class="bar-fill" style="width: {{ progress }}%"></div>
+    </div>
+
+    <span class="qnum">#{{ qid + 1 }}</span>
+    <h2>{{ question }}</h2>
+
+    <form method="POST" id="qform">
+      <div class="options">
+        {% for opt in options %}
+        <div class="option">
+          <input type="radio" name="option" value="{{ opt }}" id="opt{{ loop.index0 }}" required>
+          <label for="opt{{ loop.index0 }}">{{ opt }}</label>
+        </div>
+        {% endfor %}
+      </div>
+
+      <div class="nav">
+        <span></span>
+        <button type="submit" class="btn" id="submitBtn" disabled>Next &rarr;</button>
+      </div>
+    </form>
+  </div>
+
+  <script>
+    const radios = document.querySelectorAll('input[name="option"]');
+    const btn = document.getElementById('submitBtn');
+    radios.forEach(r => r.addEventListener('change', () => btn.disabled = false));
+  </script>
+</body>
+</html>
