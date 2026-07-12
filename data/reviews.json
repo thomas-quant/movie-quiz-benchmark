@@ -2818,6 +2818,394 @@
         "available": true,
         "affects_quality": false
       }
+    },
+    {
+      "submission_id": "submission-015",
+      "canonical_review_path": "reviews/submission-015.md",
+      "quiz": {
+        "type": "knowledge",
+        "question_count": 32,
+        "options_per_question": 4
+      },
+      "objective": {
+        "launch_status": "Yes",
+        "full_flow_status": "Yes",
+        "quiz_type": "Knowledge",
+        "questions": "32",
+        "options_per_question": "4",
+        "content_scope_result": "Yes",
+        "scoring_result_behavior": "Yes, for the exercised path",
+        "final_result_agreement": "Yes, for the exercised first-option path",
+        "answer_leak": "No observed before answering",
+        "answer_position_distribution": "A: 8, B: 19, C: 5, D: 0",
+        "skip_direct_navigation_behavior": "Unverified",
+        "restart_behavior": "Unverified",
+        "results_behavior": "Yes, full answer review shown",
+        "tests_present": "No",
+        "tests_pass_status": "N/A",
+        "self_testing_evidence": "Unverified",
+        "baseline_facts": [
+          {
+            "label": "Launches",
+            "result": "Yes",
+            "evidence": "The fresh evidence starts the Flask server successfully and records `GET /` as 200. The trace also records one `/favicon.ico` 404, but no page error or failed application route."
+          },
+          {
+            "label": "Full flow completes",
+            "result": "Yes",
+            "evidence": "Fresh headed Playwright metadata records 32 steps from `/` through `/question/32` to `/results`; the server log records the final results page as 200."
+          },
+          {
+            "label": "Quiz type",
+            "result": "knowledge",
+            "evidence": "The questions ask for definitions and examples of movie genres, subgenres, formats, and related movie types."
+          },
+          {
+            "label": "Questions",
+            "result": "32; four options each",
+            "evidence": "`submission/questions.py` contains 32 question entries, each with a four-item `choices` list; the fresh start page also displays \u201c32 questions.\u201d"
+          },
+          {
+            "label": "Page-per-question behavior",
+            "result": "Yes",
+            "evidence": "The trace records a distinct GET for each `/question/1` through `/question/32`, with each submitted answer redirecting to the next question or `/results`."
+          },
+          {
+            "label": "State between pages",
+            "result": "Yes",
+            "evidence": "The trace carries session cookies between requests, and the completed run produces a score and 32-item review. The source stores answers and score in the Flask session."
+          },
+          {
+            "label": "Meets minimum question count",
+            "result": "Yes",
+            "evidence": "32 questions were supplied, exceeding the 30-question minimum."
+          },
+          {
+            "label": "Content matches movie types/genres",
+            "result": "Yes",
+            "evidence": "The question bank covers horror, documentary, noir, western, rom-com, science fiction, thriller, biopic, fantasy, musical, and other movie genres or formats."
+          },
+          {
+            "label": "Scoring/result generation",
+            "result": "Yes, for the exercised path",
+            "evidence": "The fresh all-first-option run ends with `8 / 32 (25%)`, and the results review agrees with the selected answers. This is consistent with the eight option-A answer keys. Other answer choices were not exercised in the fresh run."
+          },
+          {
+            "label": "Answer/category leak",
+            "result": "No observed before answering",
+            "evidence": "The question screenshot shows only the question and four choices; the question template renders choices but not the answer key. The completed results review intentionally reveals correct answers afterward."
+          },
+          {
+            "label": "Answer-position distribution",
+            "result": "A: 8, B: 19, C: 5, D: 0",
+            "evidence": "Counting the 32 `answer` indexes in `submission/questions.py` shows a strong bias toward option B and no correct option D."
+          },
+          {
+            "label": "Skip/direct-navigation behavior",
+            "result": "Unverified",
+            "evidence": "The fresh trace follows only the intended sequence and does not probe an incomplete direct URL or an out-of-order question. The source contains guards intended to redirect to the first unanswered question, but that behavior was not freshly verified."
+          },
+          {
+            "label": "Restart behavior",
+            "result": "Unverified",
+            "evidence": "The fresh run does not click \u201cPlay again\u201d or \u201cStart over.\u201d The source\u2019s `/start` route calls `session.clear()`, but clearing prior results was not freshly verified."
+          },
+          {
+            "label": "Tests present",
+            "result": "No",
+            "evidence": "No test files are present in the staged submission; both available test-result records say \u201cNo test files found.\u201d"
+          },
+          {
+            "label": "Tests pass",
+            "result": "N/A",
+            "evidence": "There are no tests to run; the available test-result record is explicitly `not-run`."
+          },
+          {
+            "label": "Self-testing evidence",
+            "result": "Unverified",
+            "evidence": "`submission/notes.txt` claims the agent ran tests, but no test artifacts or agent-run output corroborate that claim. The headed Playwright trace verifies the artifact externally, not the agent\u2019s own testing process."
+          }
+        ]
+      },
+      "ratings": {
+        "frontend": {
+          "rating": 3,
+          "weight_percent": 40,
+          "weighted_points": 24,
+          "evidence": "40% | 24/40 | The captured start, question, and results states share a coherent navy gradient, white card, coral action color, readable hierarchy, progress bar, and consistent controls. The composition is also a generic single-card/gradient treatment with a weak emoji-like logo, no movie-specific imagery, and a long repetitive results list."
+        },
+        "ux": {
+          "rating": 3,
+          "weight_percent": 40,
+          "weighted_points": 24,
+          "evidence": "40% | 24/40 | The start page sets expectations, the question page exposes count/score/progress and large selectable answer rows, and the results page gives a score plus per-question review. The flow is strictly linear with no visible back/edit control, and 32 consecutive submissions create friction; direct-navigation and restart behavior remain unverified."
+        },
+        "code": {
+          "rating": 4,
+          "weight_percent": 15,
+          "weighted_points": 12,
+          "evidence": "15% | 12/15 | The question bank, routes, templates, and stylesheet are separated cleanly. The small helper functions and session transitions in `submission/app.py` are understandable and straightforward to change. The lack of tests and limited handling evidence keep it below exceptional."
+        },
+        "verification": {
+          "rating": 1,
+          "weight_percent": 5,
+          "weighted_points": 1,
+          "evidence": "5% | 1/5 | No test files or pass output are available. The notes claim testing, but the available record says no tests were found and not run."
+        }
+      },
+      "weighted_category_points": {
+        "frontend": 24,
+        "ux": 24,
+        "code": 12,
+        "verification": 1
+      },
+      "quality_score": {
+        "value": 61,
+        "formula": "(frontend / 5 \u00d7 40) + (ux / 5 \u00d7 40) + (code / 5 \u00d7 15) + (verification / 5 \u00d7 5)",
+        "recalculated_from_integer_ratings": true
+      },
+      "capture": {
+        "submission": "submission-015",
+        "status": "completed",
+        "screenshots": [
+          "start.png",
+          "question.png",
+          "results.png"
+        ],
+        "viewport": {
+          "width": 1440,
+          "height": 1000
+        },
+        "device_scale_factor": 2,
+        "headed": true,
+        "browser_settings": {
+          "engine": "Chromium",
+          "locale": "en-GB",
+          "animations_disabled": true,
+          "png_output": "lossless"
+        },
+        "steps_taken": 32,
+        "url_paths": {
+          "start": "/",
+          "question": "/question/1",
+          "results": "/results"
+        },
+        "console_errors": [
+          "Failed to load resource: the server responded with a status of 404 (NOT FOUND)"
+        ],
+        "page_errors": []
+      },
+      "reviewer": {
+        "confidence": "High",
+        "disagreement_status": "Not assessed: one canonical blind pass; no independent second pass.",
+        "canonical_review_filename": "review-1.md"
+      },
+      "build_time": {
+        "display": "4m 25s",
+        "seconds": 265.0,
+        "available": true,
+        "affects_quality": false
+      },
+      "output_tokens": {
+        "display": "11.7k",
+        "count": 11700,
+        "available": true,
+        "affects_quality": false
+      }
+    },
+    {
+      "submission_id": "submission-016",
+      "canonical_review_path": "reviews/submission-016.md",
+      "quiz": {
+        "type": "knowledge",
+        "question_count": 32,
+        "options_per_question": 4
+      },
+      "objective": {
+        "launch_status": "Yes",
+        "full_flow_status": "Yes",
+        "quiz_type": "Knowledge",
+        "questions": "32",
+        "options_per_question": "4",
+        "content_scope_result": "Yes",
+        "scoring_result_behavior": "Yes",
+        "final_result_agreement": "Yes, for the exercised first-option path",
+        "answer_leak": "No",
+        "answer_position_distribution": "27 A / 3 B / 2 C / 0 D",
+        "skip_direct_navigation_behavior": "Unverified",
+        "restart_behavior": "Unverified",
+        "results_behavior": "Yes, full answer review shown",
+        "tests_present": "No",
+        "tests_pass_status": "N/A",
+        "self_testing_evidence": "No",
+        "baseline_facts": [
+          {
+            "label": "Launches",
+            "result": "Yes",
+            "evidence": "Fresh headed evidence has status `completed`; `evidence/server.log` shows Flask starting and `GET /` returning 200."
+          },
+          {
+            "label": "Full flow completes",
+            "result": "Yes",
+            "evidence": "`evidence/metadata.json` records 32 steps from `/question/1` through `/question/32` and then `/results`; `results.png` renders the completed result."
+          },
+          {
+            "label": "Quiz type",
+            "result": "knowledge",
+            "evidence": "The start screen describes testing knowledge, and the questions ask for movie genres or types from definitions."
+          },
+          {
+            "label": "Questions",
+            "result": "32",
+            "evidence": "`start.png` states 32 questions, and the staged `QUESTIONS` list contains 32 entries. Each question has four options."
+          },
+          {
+            "label": "Page-per-question behavior",
+            "result": "Yes",
+            "evidence": "The fresh trace records a separate numbered URL for every question, and the server log records GETs for `/question/1` through `/question/32`."
+          },
+          {
+            "label": "State between pages",
+            "result": "Yes",
+            "evidence": "The trace advances through numbered pages and the result is 27/32 after selecting the first option each time; the staged app stores `index`, `score`, and `history` in the session."
+          },
+          {
+            "label": "Meets minimum question count",
+            "result": "Yes",
+            "evidence": "32 questions meets the required minimum of 30."
+          },
+          {
+            "label": "Content matches movie types/genres",
+            "result": "Yes",
+            "evidence": "The content covers Action, Comedy, Drama, Horror, Science Fiction, Fantasy, Thriller, Romance, Documentary, and other movie genres or forms."
+          },
+          {
+            "label": "Scoring/result generation",
+            "result": "Yes",
+            "evidence": "The complete headed run reaches `results` and `results.png` shows 27/32 plus a 32-item answer review; the score agrees with the staged answer key for the first-option run."
+          },
+          {
+            "label": "Answer/category leak",
+            "result": "No",
+            "evidence": "The fresh pre-answer `question.png` shows the question and four options without an answer or feedback; the template displays feedback only from a prior submitted result."
+          },
+          {
+            "label": "Answer-position distribution",
+            "result": "27 A / 3 B / 2 C / 0 D",
+            "evidence": "Counting the staged `answer` fields gives 27 option-A answers, 3 option-B answers, 2 option-C answers, and no option-D answers."
+          },
+          {
+            "label": "Skip/direct-navigation behavior",
+            "result": "Unverified",
+            "evidence": "The fresh trace covers only the sequential answered path. Source indicates mismatched GETs redirect to the current question and the browser form is required, but a direct URL jump and a POST with no option were not exercised; the POST handler appears to accept a missing option and advance it as incorrect."
+          },
+          {
+            "label": "Restart behavior",
+            "result": "Unverified",
+            "evidence": "`results.png` shows a Restart Quiz control, and source clears the session at `/`, but the fresh trace stops on the results page and does not click restart."
+          },
+          {
+            "label": "Tests present",
+            "result": "No",
+            "evidence": "No test files are present in the staged context; `evidence/test-results.txt` reports that no test files were found."
+          },
+          {
+            "label": "Tests pass",
+            "result": "N/A",
+            "evidence": "There are no staged tests to run."
+          },
+          {
+            "label": "Self-testing evidence",
+            "result": "No",
+            "evidence": "The available test record says no test files were found and no agent-attributed manual or browser self-test record is included."
+          }
+        ]
+      },
+      "ratings": {
+        "frontend": {
+          "rating": 3,
+          "weight_percent": 40,
+          "weighted_points": 24,
+          "evidence": "40% | 24/40 | The three fresh screenshots show a consistent dark palette, readable type, aligned cards, clear controls, and a useful progress bar. The visual system is fairly generic and sparse, the start state leaves a large amount of unused space, and the title plus result markers render as empty square glyphs instead of the intended movie/check/cross emoji."
+        },
+        "ux": {
+          "rating": 3,
+          "weight_percent": 40,
+          "weighted_points": 24,
+          "evidence": "40% | 24/40 | The start screen sets expectations with the 32-question count, one-question-per-page model, and score carry-over. The fresh trace demonstrates an uncomplicated sequential flow, while the source provides next-page correctness feedback and a complete answer review. The one-way flow offers no back/change-answer affordance, the results review is a long dense list after 32 questions, and the 27/3/2/0 answer-position distribution makes the quiz guessable."
+        },
+        "code": {
+          "rating": 4,
+          "weight_percent": 15,
+          "weighted_points": 12,
+          "evidence": "15% | 12/15 | The staged implementation separates data/routes, templates, and CSS sensibly for a small Flask task. Session state is straightforward, route names and variables are understandable, and the review history is modeled explicitly. Minor brittleness remains around converting submitted option values directly to integers and accepting a missing option in the POST handler."
+        },
+        "verification": {
+          "rating": 1,
+          "weight_percent": 5,
+          "weighted_points": 1,
+          "evidence": "5% | 1/5 | No tests or agent-attributed verification are present in the staged context. The fresh headed Playwright evidence verifies the artifact\u2019s main flow for this review, but it is not evidence that the coding agent tested its own work."
+        }
+      },
+      "weighted_category_points": {
+        "frontend": 24,
+        "ux": 24,
+        "code": 12,
+        "verification": 1
+      },
+      "quality_score": {
+        "value": 61,
+        "formula": "(frontend / 5 \u00d7 40) + (ux / 5 \u00d7 40) + (code / 5 \u00d7 15) + (verification / 5 \u00d7 5)",
+        "recalculated_from_integer_ratings": true
+      },
+      "capture": {
+        "submission": "submission-016",
+        "status": "completed",
+        "screenshots": [
+          "start.png",
+          "question.png",
+          "results.png"
+        ],
+        "viewport": {
+          "width": 1440,
+          "height": 1000
+        },
+        "device_scale_factor": 2,
+        "headed": true,
+        "browser_settings": {
+          "engine": "Chromium",
+          "locale": "en-GB",
+          "animations_disabled": true,
+          "png_output": "lossless"
+        },
+        "steps_taken": 32,
+        "url_paths": {
+          "start": "/",
+          "question": "/question/1",
+          "results": "/results"
+        },
+        "console_errors": [
+          "Failed to load resource: the server responded with a status of 404 (NOT FOUND)"
+        ],
+        "page_errors": []
+      },
+      "reviewer": {
+        "confidence": "High",
+        "disagreement_status": "Not assessed: one canonical blind pass; no independent second pass.",
+        "canonical_review_filename": "review-1.md"
+      },
+      "build_time": {
+        "display": "3m 25s",
+        "seconds": 205.0,
+        "available": true,
+        "affects_quality": false
+      },
+      "output_tokens": {
+        "display": "10.2k",
+        "count": 10200,
+        "available": true,
+        "affects_quality": false
+      }
     }
   ],
   "public_leaderboard": [
@@ -3072,6 +3460,42 @@
       "build_time": "4m 46s",
       "output_tokens": "6,639",
       "scorecard_path": "minimax/m2.1/SCORECARD.md"
+    },
+    {
+      "submission_id": "submission-015",
+      "model": "v1-fable-5",
+      "provider": "anthropic",
+      "cohort": "original-codex",
+      "prompt_variant": "original",
+      "quiz_type": "knowledge",
+      "quality": 61,
+      "frontend": 3,
+      "ux": 3,
+      "code": 4,
+      "verification": 1,
+      "flow": "Pass",
+      "integrity": "Biased",
+      "build_time": "4m 25s",
+      "output_tokens": "11.7k",
+      "scorecard_path": "anthropic/v1-fable-5/SCORECARD.md"
+    },
+    {
+      "submission_id": "submission-016",
+      "model": "v1-sonnet-5",
+      "provider": "anthropic",
+      "cohort": "original-codex",
+      "prompt_variant": "original",
+      "quiz_type": "knowledge",
+      "quality": 61,
+      "frontend": 3,
+      "ux": 3,
+      "code": 4,
+      "verification": 1,
+      "flow": "Pass",
+      "integrity": "Biased",
+      "build_time": "3m 25s",
+      "output_tokens": "10.2k",
+      "scorecard_path": "anthropic/v1-sonnet-5/SCORECARD.md"
     }
   ]
 }

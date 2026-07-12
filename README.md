@@ -20,6 +20,8 @@ Quality is the rubric-weighted score only: `(frontend / 5 × 40) + (UX / 5 × 40
 | [codex/v3-terra](openai/codex/v3-terra/SCORECARD.md) (`submission-013`) | knowledge | **69/100** | 4/5 | 3/5 | 4/5 | 1/5 | Pass | Biased | 4m 28s | 11.4k |
 | [big-pickle](opencode/big-pickle/SCORECARD.md) (`submission-005`) | knowledge | **66/100** | 4/5 | 3/5 | 3/5 | 1/5 | Pass | Biased | 1m 47s | 6,970 |
 | [m3](minimax/m3/SCORECARD.md) (`submission-007`) | personality/genre-match | **66/100** | 4/5 | 3/5 | 3/5 | 1/5 | Pass | Category imbalance; prior-category leak | 2m 24s | 8,570 |
+| [v1-fable-5](anthropic/v1-fable-5/SCORECARD.md) (`submission-015`) | knowledge | **61/100** | 3/5 | 3/5 | 4/5 | 1/5 | Pass | Biased | 4m 25s | 11.7k |
+| [v1-sonnet-5](anthropic/v1-sonnet-5/SCORECARD.md) (`submission-016`) | knowledge | **61/100** | 3/5 | 3/5 | 4/5 | 1/5 | Pass | Biased | 3m 25s | 10.2k |
 | [m2](minimax/m2/SCORECARD.md) (`submission-011`) | knowledge | **58/100** | 3/5 | 3/5 | 3/5 | 1/5 | Pass | Biased | 1m 41s | 7,786 |
 | [m2.5](minimax/m2.5/SCORECARD.md) (`submission-004`) | knowledge | **58/100** | 3/5 | 3/5 | 3/5 | 1/5 | Pass | Biased | 3m 51s | 15,396 |
 | [m2.7](minimax/m2.7/SCORECARD.md) (`submission-002`) | knowledge | **58/100** | 3/5 | 3/5 | 3/5 | 1/5 | Pass | Biased | 1m 52s | 4,924 |
@@ -65,7 +67,7 @@ The fresh evidence was produced by an automated Playwright runner that launched 
 | Screenshot output | Full-page, lossless PNG |
 | Stability | CSS animations/transitions disabled |
 
-All 14 final capture sets completed. The crawler was corrected to discover visually hidden radio inputs; the corrected runner was an external patched copy and was not committed, so no runner SHA is claimed. The publication process did not rerun captures or reviews. Most captures recorded only a non-blocking missing-favicon console 404; final metadata recorded no page errors.
+All 16 final capture sets completed. The crawler was corrected to discover visually hidden radio inputs; the corrected runner was an external patched copy and was not committed, so no runner SHA is claimed. The publication process did not rerun captures or reviews. Most captures recorded only a non-blocking missing-favicon console 404; final metadata recorded no page errors.
 
 The capture outputs used here are the fresh files in [`screenshots/reviewed/`](screenshots/reviewed/), not the repository’s legacy `screenshots/` files.
 
@@ -149,6 +151,28 @@ Each model has a collapsible gallery of the three fresh automated-review capture
 | Start | Question | Results |
 | --- | --- | --- |
 | ![m3 start](screenshots/reviewed/submission-007-start.png) | ![m3 question](screenshots/reviewed/submission-007-question.png) | ![m3 results](screenshots/reviewed/submission-007-results.png) |
+
+</details>
+
+<details>
+<summary>v1-fable-5 — submission-015 — Quality 61/100</summary>
+
+[Open scorecard](anthropic/v1-fable-5/SCORECARD.md)
+
+| Start | Question | Results |
+| --- | --- | --- |
+| ![v1-fable-5 start](screenshots/reviewed/submission-015-start.png) | ![v1-fable-5 question](screenshots/reviewed/submission-015-question.png) | ![v1-fable-5 results](screenshots/reviewed/submission-015-results.png) |
+
+</details>
+
+<details>
+<summary>v1-sonnet-5 — submission-016 — Quality 61/100</summary>
+
+[Open scorecard](anthropic/v1-sonnet-5/SCORECARD.md)
+
+| Start | Question | Results |
+| --- | --- | --- |
+| ![v1-sonnet-5 start](screenshots/reviewed/submission-016-start.png) | ![v1-sonnet-5 question](screenshots/reviewed/submission-016-question.png) | ![v1-sonnet-5 results](screenshots/reviewed/submission-016-results.png) |
 
 </details>
 
