@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% block title %}Question {{ number }} — Reel Types{% endblock %}
+{% block content %}
+  <section class="quiz-card">
+    <div class="progress-row">
+      <p>QUESTION {{ number }} OF {{ total_questions }}</p>
+      <div class="progress-track" aria-label="Quiz progress">
+        <span style="width: {{ (number / total_questions * 100)|round }}%"></span>
+      </div>
+    </div>
+
+    {% if last_response %}
+      <aside class="last-response {{ 'correct' if last_response.correct else 'incorrect' }}" aria-live="polite">
+        <strong>Question {{ last_response.number }}: {{ 'Correct!' if last_response.correct else 'Not quite.' }}</strong>
+        <span>You chose “{{ last_response.choice }}”. The answer was “{{ last_response.answer }}”. {{ last_response.fact }}</span>
+      </aside>
+    {% endif %}
+
+    <h1>{{ question.question }}</h1>
+    {% if error %}<p class="error" role="alert">{{ error }}</p>{% endif %}
+    <form method="post" class="answer-form">
+      {% for option in question.options %}
+        <label class="option">
+          <input type="radio" name="choice" value="{{ option }}">
+          <span>{{ option }}</span>
+        </label>
+      {% endfor %}
+      <button type="submit">{{ 'See my results' if number == total_questions else 'Next question' }} <span>→</span></button>
+    </form>
+  </section>
+{% endblock %}

@@ -12,6 +12,9 @@ iteration, no follow-ups — whatever the model ships on the first pass is what 
 > while keeping context of what happened last page. Quiz topic is types of movies.
 > minimum 30 questions. Don't invoke any of your skills, this is a one-shot prompt.
 
+**Codex v3 Luna, Sol, and Terra** received that same original prompt. They are recorded
+as separate v3 variants rather than renamed to v1, even though they share its prompt.
+
 **Codex v2** was a re-run with a tweaked prompt that added a test-yourself instruction
 and banned test files:
 
@@ -27,11 +30,11 @@ and banned test files:
 
 ## Scoring
 
-Scores are the benchmark author's judgement, anchored to **falsifiable** properties —
-things that are objectively right or wrong (does every question render, is state kept, is
-the score correct, can the answer be seen before picking). Subjective or non-falsifiable
-choices (a live in-quiz score, decorative flourishes, overall "taste") are noted in each
-scorecard but **not** scored.
+Scores are the benchmark author's judgement, anchored where possible to **falsifiable**
+properties — things that are objectively right or wrong (does every question render, is
+state kept, is the score correct, can the answer be seen before picking). Qualitative
+factors such as frontend polish and token efficiency are called out explicitly; the v3
+maintainer scores below include those factors where noted.
 
 ### Final tally
 
@@ -40,8 +43,14 @@ scorecard but **not** scored.
 | **Codex v2** | **+2** | Caught and fixed v1's answer leak; cleanest UI of the three (start screen especially); staircase creativity offset by bad scaling. |
 | **Claude** | **−1** | Worked on the first try, but minor UI rendering issues. |
 | **Codex v1** | **−3** | Answer-lookahead leak (every answer A + category shown on the card) and tests written before the app. |
+| **Codex v3 / Sol** | **+5** | Gorgeous frontend, no lookahead or all-A issue, app test file plus self-testing, and an efficient 14.0k-token build. |
+| **Codex v3 / Luna** | **+3** | Stunning frontend and finish screen with category percentages; no test file (−1) and all answers A (−1), offset by the strong overall result from the cheapest model. |
+| **Codex v3 / Terra** | **−1** | Fixed the lookahead issue, but the frontend was weak, A was correct 26/30, and there was no test file; notably fast and token-efficient. |
 
 Per-submission detail, metrics, and screenshots live in each submission's `SCORECARD.md`.
+
+The Codex v3 scorecards preserve the same factual fields as the expanded cohort and include
+the maintainer's final scores and rationale.
 
 ## Expanded cohort: opencode runs
 

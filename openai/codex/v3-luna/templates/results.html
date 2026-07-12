@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+{% block title %}Your results — Reel Types{% endblock %}
+{% block content %}
+<section class="results-hero">
+  <div>
+    <p class="eyebrow"><span class="eyebrow-dot"></span>FINAL CUT</p>
+    <h1>{{ verdict }}<br><em>in the making.</em></h1>
+    <p class="hero-intro">{{ verdict_copy }}</p>
+  </div>
+  <div class="score-stamp">
+    <span class="stamp-label">YOUR SCORE</span>
+    <strong>{{ percentage }}<sup>%</sup></strong>
+    <span class="stamp-detail">{{ score }} / {{ total_questions }} correct</span>
+  </div>
+</section>
+
+<section class="results-summary">
+  <div class="summary-label">THE SHORT VERSION</div>
+  <div class="category-grid">
+    {% for category, values in category_scores.items() %}
+      <div class="category-score">
+        <div class="category-score-top"><span>{{ category }}</span><strong>{{ values.score }}/{{ values.total }}</strong></div>
+        <div class="mini-track"><span style="width: {{ (values.score / values.total * 100)|round(2) }}%"></span></div>
+      </div>
+    {% endfor %}
+  </div>
+</section>
+
+<section class="review-section">
+  <div class="review-heading">
+    <div>
+      <p class="eyebrow"><span class="eyebrow-dot"></span>THE SCREENING ROOM</p>
+      <h2>Your answer reel</h2>
+    </div>
+    <form action="{{ url_for('restart') }}" method="post">
+      <button class="button button-outline" type="submit">Play it again <span class="button-arrow">↗</span></button>
+    </form>
+  </div>
+  <div class="review-list">
+    {% for answer in answers %}
+      <article class="review-item {% if answer.is_correct %}review-correct{% else %}review-missed{% endif %}">
+        <div class="review-number">{{ "%02d"|format(answer.number) }}</div>
+        <div class="review-body">
+          <span class="review-category">{{ answer.category }}</span>
+          <h3>{{ answer.prompt }}</h3>
+          <p>{% if answer.is_correct %}You called it: <strong>{{ answer.selected }}</strong>{% else %}You chose <strong>{{ answer.selected }}</strong>. The answer was <strong>{{ answer.correct }}</strong>.{% endif %}</p>
+          <small>{{ answer.explanation }}</small>
+        </div>
+        <div class="review-status">{% if answer.is_correct %}✓{% else %}×{% endif %}</div>
+      </article>
+    {% endfor %}
+  </div>
+</section>
+{% endblock %}

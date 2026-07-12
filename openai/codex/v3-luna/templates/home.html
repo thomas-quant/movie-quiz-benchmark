@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+{% block title %}Reel Types — Movie Genre Quiz{% endblock %}
+{% block content %}
+<section class="hero-grid">
+  <div class="hero-copy">
+    <p class="eyebrow"><span class="eyebrow-dot"></span>THE MOVIE TYPE QUIZ</p>
+    <h1>What kind of<br><em>movie mind</em><br>are you?</h1>
+    <p class="hero-intro">Thirty scenes. One seat in the director’s chair. Test your instincts across the genres, formats, and strange hybrids that make movies magic.</p>
+    <form action="{{ url_for('start') }}" method="post">
+      <button class="button button-primary" type="submit">{% if active %}Start a new quiz{% else %}Cue the quiz{% endif %}<span class="button-arrow">↗</span></button>
+    </form>
+    <p class="microcopy">30 questions <span>•</span> multiple choice <span>•</span> instant score</p>
+  </div>
+
+  <div class="hero-art" aria-label="Abstract cinema illustration" role="img">
+    <div class="art-ring ring-one"></div>
+    <div class="art-ring ring-two"></div>
+    <div class="art-sun"></div>
+    <div class="art-ticket">
+      <span class="ticket-label">ADMIT ONE</span>
+      <strong>GENRE<br>PASS</strong>
+      <span class="ticket-code">RT—030—Q</span>
+    </div>
+    <div class="art-caption">SCENE<br>01—30</div>
+    <div class="art-star star-one">✦</div>
+    <div class="art-star star-two">✦</div>
+  </div>
+</section>
+
+<section class="home-bottom">
+  <div class="feature-card">
+    <span class="feature-number">01</span>
+    <div>
+      <h2>Trust your first take.</h2>
+      <p>Each question arrives on its own page. Your answers, score, and last scene stay with you as the story unfolds.</p>
+    </div>
+  </div>
+  <div class="feature-card">
+    <span class="feature-number">02</span>
+    <div>
+      <h2>Leave with a verdict.</h2>
+      <p>See your genre strengths, revisit every answer, and find out whether you’re a virtuoso or a curious newcomer.</p>
+    </div>
+  </div>
+</section>
+{% endblock %}

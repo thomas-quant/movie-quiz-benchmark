@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+{% block title %}Scene {{ number }} — Reel Knowledge{% endblock %}
+{% block content %}
+<section class="quiz-shell shell">
+    <div class="progress-row">
+        <div>
+            <span class="eyebrow">Scene {{ "%02d"|format(number) }} of {{ total_questions }}</span>
+            <div class="progress-track" role="progressbar" aria-valuenow="{{ number }}" aria-valuemin="1" aria-valuemax="{{ total_questions }}">
+                <span style="width: {{ (number / total_questions * 100)|round }}%"></span>
+            </div>
+        </div>
+        <span class="percent">{{ (number / total_questions * 100)|round|int }}%</span>
+    </div>
+
+    {% if previous %}
+    <aside class="last-take {{ 'correct' if previous.correct else 'incorrect' }}">
+        <span class="take-icon">{{ '✓' if previous.correct else '×' }}</span>
+        <div>
+            <strong>Last scene: {{ 'Nice read.' if previous.correct else 'Plot twist.' }}</strong>
+            <span>You chose {{ previous.selected }}. The answer was {{ previous.answer }}. {{ previous.fact }}</span>
+        </div>
+    </aside>
+    {% endif %}
+
+    <div class="question-grid">
+        <div class="scene-number" aria-hidden="true">{{ "%02d"|format(number) }}</div>
+        <div class="question-card">
+            <p class="kicker">Read the premise</p>
+            <h1>{{ question.prompt }}</h1>
+            <p class="prompt">What type of movie is this?</p>
+
+            <form method="post" class="answers">
+                {% if error %}<p class="form-error" role="alert">{{ error }}</p>{% endif %}
+                {% for option in question.options %}
+                <label class="answer-option">
+                    <input type="radio" name="answer" value="{{ option }}" {% if selected == option %}checked{% endif %}>
+                    <span class="option-letter">{{ ['A', 'B', 'C', 'D'][loop.index0] }}</span>
+                    <span class="option-text">{{ option }}</span>
+                    <span class="option-check" aria-hidden="true">✓</span>
+                </label>
+                {% endfor %}
+                <div class="question-actions">
+                    {% if number > 1 %}
+                    <a class="back-link" href="{{ url_for('question', number=number - 1) }}">← Previous scene</a>
+                    {% else %}<span></span>{% endif %}
+                    <button class="button button-primary" type="submit">
+                        <span>{{ 'See my final cut' if number == total_questions else 'Lock it in' }}</span>
+                        <span aria-hidden="true">→</span>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</section>
+{% endblock %}

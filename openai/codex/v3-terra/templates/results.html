@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% block title %}Your Results — Reel Types{% endblock %}
+{% block content %}
+  <section class="results-card">
+    <p class="eyebrow">QUIZ COMPLETE</p>
+    <h1>{{ score }} / {{ total_questions }}</h1>
+    <p class="lede">{% if score == total_questions %}A perfect genre run!{% elif score >= total_questions * 0.7 %}A strong showing — you know your movie types.{% else %}Nice work. Review your answers and try again when you're ready.{% endif %}</p>
+    <form action="{{ url_for('restart') }}" method="post">
+      <button type="submit">Play again <span>↻</span></button>
+    </form>
+  </section>
+
+  <section class="review-card">
+    <h2>Your answer review</h2>
+    <ol class="answer-review">
+      {% for item in answers %}
+        <li class="{{ 'correct' if item.correct else 'incorrect' }}">
+          <p>{{ questions[item.number - 1].question }}</p>
+          <span>You answered <strong>{{ item.choice }}</strong>. {% if not item.correct %}Correct answer: <strong>{{ questions[item.number - 1].answer }}</strong>.{% else %}Correct!{% endif %}</span>
+        </li>
+      {% endfor %}
+    </ol>
+  </section>
+{% endblock %}
