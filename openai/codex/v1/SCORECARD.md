@@ -65,3 +65,11 @@ This section is generated from the canonical public aggregation. It is the compl
 | **Quality score** |  | **56/100** |
 
 Quality is recalculated from the integer ratings and excludes build time and output tokens.
+
+### Fresh automated-review captures
+
+These are the fresh headed Chromium captures used for the canonical blind review.
+
+| Start | Question | Results |
+| --- | --- | --- |
+| ![submission-008 automated review start](../../../screenshots/reviewed/submission-008-start.png) | ![submission-008 automated review question](../../../screenshots/reviewed/submission-008-question.png) | ![submission-008 automated review results](../../../screenshots/reviewed/submission-008-results.png) |
