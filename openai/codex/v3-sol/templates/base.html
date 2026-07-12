@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#18140f">
+    <title>{% block title %}Reel Knowledge{% endblock %}</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <div class="grain" aria-hidden="true"></div>
+    <header class="site-header">
+        <a class="brand" href="{{ url_for('home') }}" aria-label="Reel Knowledge home">
+            <span class="brand-mark" aria-hidden="true"><i></i><i></i><i></i></span>
+            <span>REEL<br>KNOWLEDGE</span>
+        </a>
+        <span class="edition">THE GENRE EDITION <b>•</b> {{ total_questions }} SCENES</span>
+    </header>
+    <main>
+        {% block content %}{% endblock %}
+    </main>
+    <footer>
+        <span>PICTURE HOUSE № 07</span>
+        <span class="footer-line"></span>
+        <span>ROLL CREDITS, NOT SPOILERS</span>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+{% block title %}Scene {{ number }} of {{ total_questions }} — Reel Types{% endblock %}
+{% block content %}
+<section class="quiz-layout">
+  <aside class="quiz-sidebar">
+    <div class="quiz-marker">NOW PLAYING <span>●</span></div>
+    <p class="eyebrow"><span class="eyebrow-dot"></span>SCENE {{ "%02d"|format(number) }}</p>
+    <div class="progress-number">{{ "%02d"|format(number) }}<span>/{{ "%02d"|format(total_questions) }}</span></div>
+    <div class="progress-track" aria-label="Quiz progress">
+      <div class="progress-fill" style="width: {{ ((number - 1) / total_questions * 100)|round(2) }}%"></div>
+    </div>
+    <p class="sidebar-copy">The reel keeps moving.<br>Make your best call.</p>
+    {% if state.last_result %}
+      <div class="last-scene {% if state.last_result.is_correct %}last-correct{% else %}last-missed{% endif %}">
+        <span class="last-label">LAST SCENE</span>
+        <strong>{% if state.last_result.is_correct %}Nice take.{% else %}Plot twist.{% endif %}</strong>
+        <span>{{ state.last_result.selected }}</span>
+      </div>
+    {% endif %}
+  </aside>
+
+  <div class="question-panel">
+    <div class="question-heading">
+      <span class="question-category">{{ question.category }}</span>
+      <span class="question-counter">{{ number }} / {{ total_questions }}</span>
+    </div>
+    <h1>{{ question.prompt }}</h1>
+    <form method="post" class="answer-form">
+      <fieldset>
+        <legend class="sr-only">Choose an answer</legend>
+        {% for choice in question.choices %}
+          <label class="answer-option">
+            <input type="radio" name="answer" value="{{ choice }}">
+            <span class="choice-index">{{ "ABCD"[loop.index0] }}</span>
+            <span class="choice-text">{{ choice }}</span>
+            <span class="choice-check">✓</span>
+          </label>
+        {% endfor %}
+      </fieldset>
+      <button class="button button-dark" type="submit">Lock it in <span class="button-arrow">→</span></button>
+    </form>
+    <p class="question-footnote"><span>↳</span> Your answer is saved when you move to the next scene.</p>
+  </div>
+</section>
+{% endblock %}

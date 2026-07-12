@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{% block title %}Reel Types{% endblock %}</title>
+    <meta name="description" content="A 30-question quiz about movie genres and types.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  </head>
+  <body>
+    <div class="grain" aria-hidden="true"></div>
+    <header class="site-header shell">
+      <a class="brand" href="{{ url_for('home') }}" aria-label="Reel Types home">
+        <span class="brand-mark"><span></span><span></span><span></span></span>
+        <span>REEL<span class="brand-dot">.</span>TYPES</span>
+      </a>
+      <div class="header-note">A QUIZ IN 30 SCENES</div>
+    </header>
+
+    <main class="shell page-wrap">
+      {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+          {% for category, message in messages %}
+            <div class="flash flash-{{ category }}" role="alert">{{ message }}</div>
+          {% endfor %}
+        {% endif %}
+      {% endwith %}
+      {% block content %}{% endblock %}
+    </main>
+
+    <footer class="site-footer shell">
+      <span>ROLL CREDITS WHEN YOU'RE READY</span>
+      <span class="footer-line"></span>
+      <span>REEL.TYPES / 2026</span>
+    </footer>
+  </body>
+</html>

@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+{% block title %}Your Final Cut — Reel Knowledge{% endblock %}
+{% block content %}
+<section class="results shell">
+    <div class="score-card">
+        <p class="eyebrow">The reviews are in</p>
+        <div class="score-ring" style="--score: {{ percentage * 3.6 }}deg">
+            <div><strong>{{ score }}</strong><span>/ {{ total_questions }}</span></div>
+        </div>
+        <p class="rank">{{ rank }}</p>
+        <h1>{{ message }}</h1>
+        <p class="score-copy">You identified {{ percentage }}% of the movie genres correctly.</p>
+        <form action="{{ url_for('start_quiz') }}" method="post">
+            <button class="button button-primary" type="submit"><span>Play it again</span><span>↻</span></button>
+        </form>
+    </div>
+
+    <div class="review-panel">
+        <div class="review-heading">
+            <div><p class="kicker">Your scorecard</p><h2>Scene by scene</h2></div>
+            <span>{{ score }} hits · {{ total_questions - score }} misses</span>
+        </div>
+        <ol class="review-list">
+            {% for item in answers %}
+            <li class="{{ 'correct' if item.correct else 'incorrect' }}">
+                <span class="review-number">{{ "%02d"|format(item.number) }}</span>
+                <span class="review-status">{{ '✓' if item.correct else '×' }}</span>
+                <span class="review-answer">
+                    <strong>{{ item.answer }}</strong>
+                    {% if not item.correct %}<small>Your pick: {{ item.selected }}</small>{% else %}<small>{{ item.fact }}</small>{% endif %}
+                </span>
+            </li>
+            {% endfor %}
+        </ol>
+    </div>
+</section>
+{% endblock %}

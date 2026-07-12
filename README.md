@@ -1,10 +1,10 @@
 # Movie Types Quiz — Coding-Agent Benchmark
 
-A benchmark of coding agents. Each is given the **same one-shot prompt** to build a
-multi-page Flask quiz on the **types/genres of movies**, then assessed. Two cohorts so far:
-the original **Codex vs Claude** head-to-head, and a set of models run via
-**[opencode](https://opencode.ai)**. This repo holds every submission side by side, with
-screenshots and a per-submission scorecard.
+A benchmark of coding agents. Each run gets a **one-shot prompt** to build a
+multi-page Flask quiz on the **types/genres of movies**, then assessed. Three cohorts so
+far: the original **Codex vs Claude** head-to-head, three Codex v3 variants, and a set of
+models run via **[opencode](https://opencode.ai)**. This repo holds every submission side
+by side, with screenshots and a per-submission scorecard.
 
 See **[`docs/METHODOLOGY.md`](docs/METHODOLOGY.md)** for the exact prompt, run conditions,
 how the metrics are measured, and how scoring works.
@@ -18,6 +18,17 @@ how the metrics are measured, and how scoring works.
 | **Codex v2** | 6m 40s | 41.1k | 30 | **+2** | [scorecard](openai/codex/v2/SCORECARD.md) |
 | **Claude** | 5m 01s | 28.4k | 32 | **−1** | [scorecard](anthropic/claude/SCORECARD.md) |
 | **Codex v1** | 5m 31s | 16.0k | 30 | **−3** | [scorecard](openai/codex/v1/SCORECARD.md) |
+
+### Codex v3 runs — same prompt as Claude and Codex v1
+
+These three variants received the original prompt, not the tweaked Codex v2 prompt. Their
+scorecards record the run facts and maintainer notes, including final scores.
+
+| Submission | Wall time | Output tokens | Questions | Score | Scorecard |
+| --- | --- | --- | --- | --- | --- |
+| **Codex v3 / Sol** | 6m 14s | 14.0k | 30 | **+5** | [scorecard](openai/codex/v3-sol/SCORECARD.md) |
+| **Codex v3 / Terra** | 4m 28s | 11.4k | 30 | **−1** | [scorecard](openai/codex/v3-terra/SCORECARD.md) |
+| **Codex v3 / Luna** | 6m 38s | 18.4k | 30 | **+3** | [scorecard](openai/codex/v3-luna/SCORECARD.md) |
 
 ### opencode runs — factual records, awaiting maintainer scoring
 
@@ -50,6 +61,9 @@ docs/METHODOLOGY.md          # the prompt, run conditions, how metrics + scoring
 anthropic/claude/            # Claude's submission (+ SCORECARD.md)
 openai/codex/v1/             # Codex, first run (+ SCORECARD.md)
 openai/codex/v2/             # Codex, re-run with the tweaked prompt (+ SCORECARD.md)
+openai/codex/v3-sol/         # Codex v3 Sol (+ SCORECARD.md)
+openai/codex/v3-terra/       # Codex v3 Terra (+ SCORECARD.md)
+openai/codex/v3-luna/        # Codex v3 Luna (+ SCORECARD.md)
 opencode/big-pickle/         # stealth model, lab undisclosed (+ SCORECARD.md)
 deepseek/v4-flash/           # (+ SCORECARD.md)
 xiaomi/mimo-v2.5/            # MiMo (+ SCORECARD.md)
@@ -59,7 +73,8 @@ screenshots/                 # captures used in the scorecards
 
 Each submission folder holds the model's output exactly as produced, plus a `SCORECARD.md`.
 For the original Codex/Claude entries the scorecard includes the maintainer's notes and
-score; for the opencode entries it records facts only and leaves a blank maintainer section.
+score. Codex v3 entries include the final maintainer scores; opencode entries record facts
+and qualitative notes while their score fields remain open for maintainer scoring.
 
 ## Running any submission
 
