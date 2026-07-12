@@ -11,7 +11,7 @@ The benchmark reports two separate dimensions: objective baseline behavior (laun
 ## Reviewer model and configuration
 
 - Reviewer rubric: [`REVIEWER.md`](../REVIEWER.md).
-- Reviewer model: the configured fixed blind reviewer model recorded in the private review policy; the model/provider identity is intentionally not added to raw review files.
+- Reviewer model/configuration: `gpt-5.6-luna` subagents dispatched with `xhigh` reasoning. This configuration was fixed for the blind review pass; the reviewer identity is not added to raw review files.
 - Review passes: one canonical blind review per submission; no second independent pass was completed.
 - Submission-006: the corrected Luna/xhigh review-1.md replaced the flawed earlier draft in place. It is the sole canonical review and was not averaged as a second rating.
 - Review context: each reviewer received only its anonymized staged submission, fresh evidence, benchmark task context, and rubric. Model, provider, source path, ranking, and existing scorecard context were excluded.
@@ -35,7 +35,7 @@ The corrected crawler was an external patched copy of the capture runner. It cha
 
 ## Capture and retry process
 
-The standardized runner opened each clean staged app, captured start/question/results PNGs, and drove the ordinary answer flow to completion. Three capture sets were rerun after the crawler fix; all 14 final sets completed. Publication copied only the final fresh PNGs and sanitized metadata. Trace archives, server logs, install logs, environments, staged source copies, and test-result files are excluded from the public export.
+The standardized runner opened each clean staged app, captured start/question/results PNGs, and drove the ordinary answer flow to completion. Three earlier capture sets were rerun after the crawler fix, then the two newly added runs were captured with the same corrected external runner; their initial host-library launch issue was resolved by supplying the configured browser-library path, and all 16 final sets completed. Publication copied only the final fresh PNGs and sanitized metadata. Trace archives, server logs, install logs, environments, staged source copies, and test-result files are excluded from the public export.
 
 ## REVIEWER.md rubric and weights
 
@@ -52,7 +52,7 @@ Quality uses integer ratings and exactly these weights:
 
 ## Anonymization and blind-context rules
 
-Raw reviews and the external export use only `submission-001` through `submission-014`. The public manifest contains opaque IDs and artifact paths only. Sanitized metadata removes absolute filesystem paths, server commands, host/port details, private environments, caches, source paths, and provider mappings. The private manifest was consulted only after the blind reviews were complete to create the repository's post-review leaderboard and model-specific scorecard additions; no private source paths are published.
+Raw reviews and the external export use only `submission-001` through `submission-016`. The public manifest contains opaque IDs and artifact paths only. Sanitized metadata removes absolute filesystem paths, server commands, host/port details, private environments, caches, source paths, and provider mappings. The private manifest was consulted only after the blind reviews were complete to create the repository's post-review leaderboard and model-specific scorecard additions; no private source paths are published.
 
 ## Objective baseline results
 
@@ -72,6 +72,8 @@ Raw reviews and the external export use only `submission-001` through `submissio
 | submission-012 | knowledge | 34 | Yes | Yes | Yes | Yes | No | Heavily biased | Bypassable | Yes | N/A | completed | High |
 | submission-013 | knowledge | 30 | Yes | Yes | Yes | Yes | No | A: 26, B: 3, C: 1, D: 0 | Unverified | Unverified | N/A | completed | High |
 | submission-014 | knowledge | 31 | Yes | Yes | No | Yes, mechanically; correctness is flawed | No | A: 10, B: 14, C: 6, D: 1 | Direct question jumping: No; crafted POST bypass: Yes | Yes | N/A | completed | High |
+| submission-015 | knowledge | 32 | Yes | Yes | Yes | Yes, for the exercised path | No observed before answering | A: 8, B: 19, C: 5, D: 0 | Unverified | Unverified | N/A | completed | High |
+| submission-016 | knowledge | 32 | Yes | Yes | Yes | Yes | No | 27 A / 3 B / 2 C / 0 D | Unverified | Unverified | N/A | completed | High |
 
 ## Quality ratings and aggregation
 
@@ -91,12 +93,14 @@ Raw reviews and the external export use only `submission-001` through `submissio
 | submission-012 | 3/5 | 3/5 | 2/5 | 1/5 | frontend 24/40, ux 24/40, code 6/15, verification 1/5 | 55/100 |
 | submission-013 | 4/5 | 3/5 | 4/5 | 1/5 | frontend 32/40, ux 24/40, code 12/15, verification 1/5 | 69/100 |
 | submission-014 | 3/5 | 2/5 | 3/5 | 1/5 | frontend 24/40, ux 16/40, code 9/15, verification 1/5 | 50/100 |
+| submission-015 | 3/5 | 3/5 | 4/5 | 1/5 | frontend 24/40, ux 24/40, code 12/15, verification 1/5 | 61/100 |
+| submission-016 | 3/5 | 3/5 | 4/5 | 1/5 | frontend 24/40, ux 24/40, code 12/15, verification 1/5 | 61/100 |
 
 Every published quality value was recalculated from the integer ratings and checked against the canonical review table. The model-level public leaderboard in `README.md` is a post-review join; it is not used to alter the blind review records.
 
 ## Reviewer confidence and disagreement handling
 
-Confidence is reported per canonical review: 13 submissions are High and submission-007 is Medium because several alternate paths and a question screenshot anomaly remained unverified. A second independent pass was not completed, so inter-reviewer disagreement was not measured. The submission-006 corrected review is a replacement of the canonical review, not an additional vote or competing score.
+Confidence is reported per canonical review: 15 submissions are High and submission-007 is Medium because several alternate paths and a question screenshot anomaly remained unverified. A second independent pass was not completed, so inter-reviewer disagreement was not measured. The submission-006 corrected review is a replacement of the canonical review, not an additional vote or competing score.
 
 ## Build-time and output-token separation
 
@@ -118,6 +122,8 @@ The following are build-turn efficiency facts retained separately from Quality. 
 | submission-012 | 1m 35s | 7,055 |
 | submission-013 | 4m 28s | 11.4k |
 | submission-014 | 4m 46s | 6,639 |
+| submission-015 | 4m 25s | 11.7k |
+| submission-016 | 3m 25s | 10.2k |
 
 ## Limitations and known capture/runtime caveats
 
