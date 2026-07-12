@@ -1,5 +1,9 @@
 # Scorecard — MiniMax M2.1 (`MiniMax-M2.1`)
 
+## Legacy assessment
+
+The pre-publication scorecard content below is retained verbatim. Its historical score uses a different maintainer scale and is not comparable to the canonical automated quality score.
+
 > Factual record, compiled by automated assessment: static code read + live browser run
 > (Chromium, fresh Flask launch, Python 3.12). The model's own files in this folder are
 > exactly as it produced them. **The qualitative assessment and final score are for the
@@ -55,3 +59,36 @@ Factual notes:
      subjective calls) and assign the final score here. -->
 
 **Score:** _TBD_
+
+## Automated blind review
+
+This section is generated from the canonical public aggregation. It is the completed benchmark quality assessment. The Legacy assessment above is retained historical maintainer material on a different scale and is not a competing total.
+
+| Field | Value |
+| --- | --- |
+| Opaque submission ID | `submission-014` |
+| Final review | [`../../reviews/submission-014.md`](../../reviews/submission-014.md) |
+| Quiz type | knowledge |
+| Questions / options | 31 / 4 |
+| Launch / full flow | Yes / Yes |
+| Content scope | No |
+| Scoring/result | Yes, mechanically; correctness is flawed |
+| Answer leak / position distribution | No / A: 10, B: 14, C: 6, D: 1 |
+| Skip/direct navigation | Direct question jumping: No; crafted POST bypass: Yes |
+| Restart | Yes |
+| Tests present / pass status | No / N/A |
+| Capture status | completed |
+| Reviewer confidence | High |
+| Disagreement status | Not assessed: one canonical blind pass; no independent second pass. |
+| Build time | 4m 46s |
+| Output tokens | 6,639 |
+
+| Category | Rating | Weighted points |
+| --- | ---: | ---: |
+| Frontend visual quality and polish | 3/5 | 24/40 |
+| UX and interaction design | 2/5 | 16/40 |
+| Code quality and maintainability | 3/5 | 9/15 |
+| Tests and verification evidence | 1/5 | 1/5 |
+| **Quality score** |  | **50/100** |
+
+Quality is recalculated from the integer ratings and excludes build time and output tokens.
