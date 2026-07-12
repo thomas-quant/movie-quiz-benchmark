@@ -1,8 +1,15 @@
-# Movie Types Quiz — Coding-Agent Benchmark
+# Movie Quiz Benchmark for Coding Agents and LLMs
 
-Completed benchmark publication for one-shot coding agents building multi-page Flask quizzes about movie types or genres.
+A reproducible benchmark comparing how coding agents and large language models build multi-page Flask movie quizzes from the same one-shot prompt. This public publication contains 14 model-generated submissions, blind reviews, objective browser-flow evidence, screenshots, scorecards, and aggregated benchmark results.
 
-The canonical public aggregation is [`data/reviews.json`](data/reviews.json). Full methodology and results are in [`docs/METHODOLOGY.md`](docs/METHODOLOGY.md) and [`docs/RESULTS.md`](docs/RESULTS.md). The raw published reviews remain keyed by opaque submission IDs; the model-level leaderboard and gallery are post-review joins.
+The benchmark measures more than whether an app launches: it evaluates frontend quality, user experience, code quality, verification, quiz correctness, state across pages, navigation integrity, answer distribution, and completion flow.
+
+- [Leaderboard and screenshot gallery](#automated-review-leaderboard)
+- [Benchmark methodology](docs/METHODOLOGY.md)
+- [Full results and limitations](docs/RESULTS.md)
+- [Canonical review data](data/reviews.json)
+
+The canonical public aggregation is [`data/reviews.json`](data/reviews.json). The raw published reviews remain keyed by opaque submission IDs; the model-level leaderboard and gallery are post-review joins.
 
 ## Automated review leaderboard
 
