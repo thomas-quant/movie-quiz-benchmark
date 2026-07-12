@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% block title %}Results &mdash; Movie Types Quiz{% endblock %}
+{% block content %}
+  <h1>Your results</h1>
+  <p class="lead score-line">
+    You scored <strong>{{ score }} / {{ total }}</strong> ({{ percent }}%).
+    {% if percent >= 90 %}A true film buff!
+    {% elif percent >= 70 %}Solid genre knowledge.
+    {% elif percent >= 50 %}Not bad &mdash; worth a rewatch.
+    {% else %}Time for a movie marathon!{% endif %}
+  </p>
+
+  <div class="actions">
+    <a class="btn" href="{{ url_for('start') }}">Play again</a>
+  </div>
+
+  <h2>Review</h2>
+  <ol class="review">
+    {% for item in review %}
+      <li class="{{ 'ok' if item.correct else 'bad' }}">
+        <p class="review-q">{{ item.number }}. {{ item.text }}</p>
+        <p class="review-a">
+          Your answer: {{ item.chosen }}
+          {% if item.correct %}&#10003;{% else %}&#10007; &mdash; correct answer: {{ item.right_answer }}{% endif %}
+        </p>
+      </li>
+    {% endfor %}
+  </ol>
+{% endblock %}

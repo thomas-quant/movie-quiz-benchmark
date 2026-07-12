@@ -14,7 +14,7 @@ Quality is the rubric-weighted score only: `(frontend / 5 × 40) + (UX / 5 × 40
 | Submission | Quiz type | Quality | Frontend | UX | Code | Verification | Flow | Integrity | Build time | Output tokens |
 | --- | --- | ---: | ---: | ---: | ---: | ---: | --- | --- | --- | ---: |
 | [codex/v3-sol](openai/codex/v3-sol/SCORECARD.md) (`submission-003`) | knowledge | **88/100** | 5/5 | 4/5 | 4/5 | 4/5 | Pass | Biased | 6m 14s | 14.0k |
-| [claude](anthropic/claude/SCORECARD.md) (`submission-006`) | knowledge | **78/100** | 4/5 | 4/5 | 4/5 | 2/5 | Pass | Biased | 5m 01s | 28.4k |
+| [v1-opus-4.8](anthropic/v1-opus-4.8/SCORECARD.md) (`submission-006`) | knowledge | **78/100** | 4/5 | 4/5 | 4/5 | 2/5 | Pass | Biased | 5m 01s | 28.4k |
 | [codex/v2](openai/codex/v2/SCORECARD.md) (`submission-001`) | knowledge | **78/100** | 4/5 | 4/5 | 4/5 | 2/5 | Pass | Balanced | 6m 40s | 41.1k |
 | [codex/v3-luna](openai/codex/v3-luna/SCORECARD.md) (`submission-009`) | knowledge | **77/100** | 5/5 | 3/5 | 4/5 | 1/5 | Pass | Biased | 6m 38s | 18.4k |
 | [codex/v3-terra](openai/codex/v3-terra/SCORECARD.md) (`submission-013`) | knowledge | **69/100** | 4/5 | 3/5 | 4/5 | 1/5 | Pass | Biased | 4m 28s | 11.4k |
@@ -87,13 +87,13 @@ Each model has a collapsible gallery of the three fresh automated-review capture
 </details>
 
 <details>
-<summary>claude — submission-006 — Quality 78/100</summary>
+<summary>v1-opus-4.8 — submission-006 — Quality 78/100</summary>
 
-[Open scorecard](anthropic/claude/SCORECARD.md)
+[Open scorecard](anthropic/v1-opus-4.8/SCORECARD.md)
 
 | Start | Question | Results |
 | --- | --- | --- |
-| ![claude start](screenshots/reviewed/submission-006-start.png) | ![claude question](screenshots/reviewed/submission-006-question.png) | ![claude results](screenshots/reviewed/submission-006-results.png) |
+| ![v1-opus-4.8 start](screenshots/reviewed/submission-006-start.png) | ![v1-opus-4.8 question](screenshots/reviewed/submission-006-question.png) | ![v1-opus-4.8 results](screenshots/reviewed/submission-006-results.png) |
 
 </details>
 

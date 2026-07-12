@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="card">
+    <h2>Quiz Complete!</h2>
+    <p class="score-big">You scored {{ score }} / {{ total }}</p>
+    <p>
+        {% set pct = (score / total * 100) | round %}
+        {% if pct >= 90 %}🏆 Certified movie buff!
+        {% elif pct >= 70 %}🍿 Solid grasp of film genres!
+        {% elif pct >= 50 %}🎞️ Not bad, a bit more movie-watching needed.
+        {% else %}🎬 Time for a genre marathon!
+        {% endif %}
+    </p>
+    <form action="{{ url_for('start') }}" method="get">
+        <button type="submit" class="btn">Restart Quiz</button>
+    </form>
+</div>
+
+<div class="card">
+    <h3>Review your answers</h3>
+    <ol class="review">
+        {% for item in history %}
+        <li class="{{ 'correct' if item.is_correct else 'incorrect' }}">
+            <p class="review-q">{{ item.question }}</p>
+            <p>
+                Your answer:
+                <strong>{{ item.options[item.chosen] if item.chosen is not none else "nothing" }}</strong>
+                {% if not item.is_correct %}
+                    &mdash; Correct answer: <strong>{{ item.options[item.correct_index] }}</strong>
+                {% endif %}
+            </p>
+        </li>
+        {% endfor %}
+    </ol>
+</div>
+{% endblock %}

@@ -2913,7 +2913,7 @@
     },
     {
       "submission_id": "submission-006",
-      "model": "claude",
+      "model": "v1-opus-4.8",
       "provider": "anthropic",
       "cohort": "original-codex",
       "prompt_variant": "original",
@@ -2927,7 +2927,7 @@
       "integrity": "Biased",
       "build_time": "5m 01s",
       "output_tokens": "28.4k",
-      "scorecard_path": "anthropic/claude/SCORECARD.md"
+      "scorecard_path": "anthropic/v1-opus-4.8/SCORECARD.md"
     },
     {
       "submission_id": "submission-007",

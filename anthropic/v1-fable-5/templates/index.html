@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% block content %}
+  <h1>How well do you know your movie genres?</h1>
+  <p class="lead">
+    {{ total }} questions on types of movies &mdash; one question per page.
+    Your progress and score are kept as you go.
+  </p>
+  {% if in_progress %}
+    <p class="notice">You have a quiz in progress ({{ in_progress }}/{{ total }} answered).</p>
+    <div class="actions">
+      <a class="btn" href="{{ url_for('question', number=resume_at) }}">Resume quiz</a>
+      <a class="btn btn-secondary" href="{{ url_for('start') }}">Start over</a>
+    </div>
+  {% else %}
+    <div class="actions">
+      <a class="btn" href="{{ url_for('start') }}">Start the quiz</a>
+    </div>
+  {% endif %}
+{% endblock %}

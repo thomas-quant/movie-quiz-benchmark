@@ -1,0 +1,1 @@
+3m 25s for sonnet 5, done code impl by 1m 10s, venv hung & took a sec to install flask, 10.2k output tokens

@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% block content %}
+
+{% if last_result %}
+<div class="feedback {{ 'correct' if last_result.is_correct else 'incorrect' }}">
+    {% if last_result.is_correct %}
+        ✅ Correct! The answer was <strong>{{ last_result.options[last_result.correct_index] }}</strong>.
+    {% else %}
+        ❌ Not quite. You picked
+        <strong>{{ last_result.options[last_result.chosen] if last_result.chosen is not none else "nothing" }}</strong>,
+        the correct answer was <strong>{{ last_result.options[last_result.correct_index] }}</strong>.
+    {% endif %}
+</div>
+{% endif %}
+
+<div class="progress">
+    <span>Question {{ n }} of {{ total }}</span>
+    <span>Score: {{ score }} / {{ n - 1 }}</span>
+</div>
+<div class="progress-bar">
+    <div class="progress-bar-fill" style="width: {{ ((n - 1) / total * 100) | round(1) }}%;"></div>
+</div>
+
+<div class="card">
+    <h2>{{ q.question }}</h2>
+    <form action="{{ url_for('answer', n=n) }}" method="post">
+        {% for option in q.options %}
+        <label class="option">
+            <input type="radio" name="option" value="{{ loop.index0 }}" required>
+            {{ option }}
+        </label>
+        {% endfor %}
+        <button type="submit" class="btn">
+            {% if n == total %}Finish Quiz{% else %}Next Question{% endif %}
+        </button>
+    </form>
+</div>
+{% endblock %}

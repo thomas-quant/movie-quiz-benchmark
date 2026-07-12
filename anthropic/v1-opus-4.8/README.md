@@ -12,7 +12,7 @@ back, or refresh — so context is never lost between pages.
 ## Run it
 
 ```bash
-cd claude
+cd v1-opus-4.8
 python3 -m venv .venv
 source .venv/bin/activate        # Windows: .venv\Scripts\activate
 pip install -r requirements.txt

@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="card">
+    <p>Test your knowledge of movie genres and types of films.</p>
+    <p>There are <strong>{{ total }}</strong> questions. One question per page, and your score
+       carries with you as you go.</p>
+    <form action="{{ url_for('begin') }}" method="post">
+        <button type="submit" class="btn">Start Quiz</button>
+    </form>
+</div>
+{% endblock %}
