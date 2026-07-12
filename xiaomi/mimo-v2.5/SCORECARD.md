@@ -1,5 +1,9 @@
 # Scorecard — MiMo v2.5 (`mimo-v2.5-free`)
 
+## Legacy assessment
+
+The pre-publication scorecard content below is retained verbatim. Its historical score uses a different maintainer scale and is not comparable to the canonical automated quality score.
+
 > Factual record, compiled by automated assessment: static code read + live browser run
 > (Chromium, fresh Flask launch, Python 3.12). The model's own files in this folder are
 > exactly as it produced them. **The qualitative assessment and final score are for the
@@ -55,3 +59,36 @@ Factual notes:
      subjective calls) and assign the final score here. -->
 
 **Score:** _TBD_
+
+## Automated blind review
+
+This section is generated from the canonical public aggregation. It is the completed benchmark quality assessment. The Legacy assessment above is retained historical maintainer material on a different scale and is not a competing total.
+
+| Field | Value |
+| --- | --- |
+| Opaque submission ID | `submission-012` |
+| Final review | [`../../reviews/submission-012.md`](../../reviews/submission-012.md) |
+| Quiz type | knowledge |
+| Questions / options | 34 / 4 |
+| Launch / full flow | Yes / Yes |
+| Content scope | Yes |
+| Scoring/result | Yes |
+| Answer leak / position distribution | No / Heavily biased |
+| Skip/direct navigation | Bypassable |
+| Restart | Yes |
+| Tests present / pass status | No / N/A |
+| Capture status | completed |
+| Reviewer confidence | High |
+| Disagreement status | Not assessed: one canonical blind pass; no independent second pass. |
+| Build time | 1m 35s |
+| Output tokens | 7,055 |
+
+| Category | Rating | Weighted points |
+| --- | ---: | ---: |
+| Frontend visual quality and polish | 3/5 | 24/40 |
+| UX and interaction design | 3/5 | 24/40 |
+| Code quality and maintainability | 2/5 | 6/15 |
+| Tests and verification evidence | 1/5 | 1/5 |
+| **Quality score** |  | **55/100** |
+
+Quality is recalculated from the integer ratings and excludes build time and output tokens.
